@@ -19,7 +19,8 @@ public class UserServiceUnitTest {
 
     @Test
     public void whenApplicationStarts_thenHibernateCreatesInitialRecords() {
-        List<User> users = UserService.list();//i ovdje isto kao i maloprije, greska
+
+        List<User> users = userService.list();
 
         Assert.assertEquals(users.size(), 3);
     }

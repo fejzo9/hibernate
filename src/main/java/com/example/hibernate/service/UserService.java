@@ -14,6 +14,6 @@ public class UserService {
     private UserRepository userRepository;
 
     public List<User> list() {
-        return UserRepository.findAll();//ne znam da li je trebam overrideovati u UserRepository-u
+        return userRepository.findAll();
     }
 }
