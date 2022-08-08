@@ -1,6 +1,6 @@
 package com.example.hibernate;
 
-import com.example.hibernate.entity.User;
+import com.example.hibernate.model.User;
 import com.example.hibernate.service.UserService;
 import org.junit.Assert;
 import org.junit.Test;
