@@ -7,7 +7,7 @@ import javax.persistence.Table;
 import java.util.UUID;
 
 @Entity
-@Table(name = "users_table")
+@Table(name = "users")
 public class User {
     @Id
     @Column(name = "id")

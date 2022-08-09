@@ -17,7 +17,7 @@ import java.util.UUID;
 public class UserService {
 
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -44,34 +44,24 @@ public class UserService {
         return userRepository.save(new User(addUser.name(), addUser.address()));
     }
 
-    public ResponseEntity<User> updateUser(@PathVariable("id") UUID id, @RequestBody User user) {
+    public User updateUser(@PathVariable("id") UUID id, @RequestBody User user) {
 
 
         if (user.getId() == id) {
             User userPom = userRepository.getById(id);
             userPom.setName(user.getName());
             userPom.setAdress(user.getAdress());
-            return new ResponseEntity<>(userPom, HttpStatus.OK);
+            return userPom;
 
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
-
-//        return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        Optional<User> userData = userRepository.getById(id);
-//        if (userData.isPresent()) {
-//            User _user = userData.get();
-//            _user.setName(user.getName());
-//            _user.setAdress(user.getAdress());
-//
-//            return new ResponseEntity<>(newUser(_user), HttpStatus.OK);
-//        } else {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
+        return user;
     }
 
-    public void deleteById(@PathVariable("id") UUID id) {
+    public User deleteById(@PathVariable("id") UUID id) {
         userRepository.deleteById(id);
+
+        return new User();
+
     }
 
     public ResponseEntity<HttpStatus> deleteAllUsers() {

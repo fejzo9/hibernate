@@ -57,18 +57,22 @@ public class UserController {
 
     @PutMapping("/users/{id}")
     public ResponseEntity<User> updateUser(@PathVariable("id") UUID id, @RequestBody User user) {
-      return userService.updateUser(id, user);
-
+        try {
+            return new ResponseEntity<>(userService.updateUser(id,user), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @DeleteMapping("/users/{id}")
-    public void deleteUser(@PathVariable("id") UUID id) {
-//        try {
-        userService.deleteById(id);
+    public ResponseEntity<User> deleteUser(@PathVariable("id") UUID id) {
+        try {
+            return new ResponseEntity<>(userService.deleteById(id), HttpStatus.ACCEPTED);
+//            userService.deleteById(id);
 //            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @DeleteMapping("/users")
