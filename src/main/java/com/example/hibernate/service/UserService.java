@@ -36,10 +36,6 @@ public class UserService {
             return optUser.get();
     }
 
-//    public ResponseEntity<User> addUser(final User u){
-//        return userRepository.save(u);
-//    }
-
     public User newUser(final AddUser addUser) {
         return userRepository.save(new User(addUser.name(), addUser.address()));
     }
@@ -47,6 +43,8 @@ public class UserService {
     public User updateUser(@PathVariable("id") UUID id, @RequestBody User user) {
 
         if (user.getId() == id) {
+//            userRepository.exists()
+//            userRepository.save()
             User userPom = userRepository.getById(id);
             userPom.setName(user.getName());
             userPom.setAdress(user.getAdress());
@@ -58,9 +56,7 @@ public class UserService {
 
     public User deleteById(@PathVariable("id") UUID id) {
         userRepository.deleteById(id);
-
         return new User();
-
     }
 
     public ResponseEntity<HttpStatus> deleteAllUsers() {

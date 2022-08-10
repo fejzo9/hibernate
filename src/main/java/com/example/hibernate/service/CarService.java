@@ -22,12 +22,12 @@ public class CarService {
     public List<Car> getCars(){ return carRepository.findAll();}
 
     public Car getCarById(UUID id) throws Exception{
-        Optional<Car> optUser = carRepository.findById(id);
+        Optional<Car> optCar = carRepository.findById(id);
 
-        if (optUser.isEmpty()) {
+        if (optCar.isEmpty()) {
             throw new Exception("error.../n The value is not present!");
         } else
-            return optUser.get();
+            return optCar.get();
     }
 
     public Car addCar(Car car)
@@ -36,8 +36,9 @@ public class CarService {
     }
 
     public Car updateCar(@PathVariable("id") UUID id, @RequestBody Car car){
-        if (car.getId() == id) {
-            Car carPom = carRepository.getById(id);
+
+        if (car.getId() == id) {//? Enil pitanje
+            Car carPom = carRepository.getReferenceById(id);
             carPom.setRegisterNumber(car.getRegisterNumber());
             carPom.setYearOfManufacture(car.getYearOfManufacture());
             return carPom;
