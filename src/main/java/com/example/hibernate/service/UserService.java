@@ -31,7 +31,7 @@ public class UserService {
         Optional<User> optUser = userRepository.findById(userId);
 
         if (optUser.isEmpty()) {
-            throw new Exception("error...\n");
+            throw new Exception("error.../n The value is not present!");
         } else
             return optUser.get();
     }
@@ -45,7 +45,6 @@ public class UserService {
     }
 
     public User updateUser(@PathVariable("id") UUID id, @RequestBody User user) {
-
 
         if (user.getId() == id) {
             User userPom = userRepository.getById(id);

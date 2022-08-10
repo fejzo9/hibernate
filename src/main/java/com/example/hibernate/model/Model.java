@@ -8,21 +8,27 @@ import java.util.UUID;
 @Entity
 @Table(name = "models")
 public class Model {
+    //fields
     @Id
-    @Column(name = "sifra")
+    @Column(name = "id")
     private UUID id;
     @Column(name="name")
     private String name;
-    @ManyToMany(mappedBy = "")
+    @ManyToMany(mappedBy = "models")
     private List<Part> parts = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "manufacturer_id")
+    Manufacturer manufacturer;
+
+    //constructors
     public Model() {
     }
-
     public Model(String name) {
         this.name = name;
     }
 
+    //getters & setters
     public UUID getId() {
         return id;
     }

@@ -1,23 +1,27 @@
 package com.example.hibernate.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Table(name = "users")
 public class User {
+    //fields
     @Id
     @Column(name = "id")
     private UUID id;
     @Column(name = "name ")
     private String name;
 
-    @Column(name = "adress ")
-    private String adress;
+    @Column(name = "address ")
+    private String address;
 
+    @OneToMany(mappedBy = "user")
+    List<Car> cars = new ArrayList<>();
+
+    //constructors
     public User() {
     }
 
@@ -25,18 +29,15 @@ public class User {
         this.id = UUID.randomUUID();
         this.name = name;
     }
-    public User(String name, String adress) {
+    public User(String name, String address) {
         this.id = UUID.randomUUID();
         this.name = name;
-        this.adress = adress;
+        this.address = address;
     }
 
+    //getters & setters
     public UUID getId() {
         return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -47,7 +48,15 @@ public class User {
         this.name = name;
     }
 
-    public String getAdress() {return adress;}
+    public String getAdress() {return address;}
 
-    public void setAdress(String adress) {this.adress = adress;}
+    public void setAdress(String adress) {this.address = adress;}
+
+    public List<Car> getCars() {
+        return cars;
+    }
+
+    public void setCars(List<Car> cars) {
+        this.cars = cars;
+    }
 }

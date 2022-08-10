@@ -8,8 +8,9 @@ import java.util.UUID;
 @Entity
 @Table(name = "parts")
 public class Part {
+    //fields
     @Id
-    @Column(name = "sifra")
+    @Column(name = "id")
     private UUID id;
     @Column(name="name")
     private String name;
@@ -18,17 +19,23 @@ public class Part {
     @Column(name="rang")
     private Rang rang;
 
+    //relationships
     @ManyToMany
     @JoinTable(name="part_model",
-    joinColumns = @JoinColumn(name="id"),
-    inverseJoinColumns = @JoinColumn(name="id"))
+    joinColumns = @JoinColumn(name="part_id"),
+    inverseJoinColumns = @JoinColumn(name="model_id"))
     private List<Model> models = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "shop_id")
+    Shop shop;
+
+    //constructors
     public Part() {
     }
-
     public Part(String name) {
-
+        this.id = UUID.randomUUID();
+        this.name = name;
     }
 
     public Part(String name, Double price) {
@@ -36,12 +43,10 @@ public class Part {
         this.price = price;
     }
 
+    //getters & setters
+
     public UUID getId() {
         return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -68,11 +73,18 @@ public class Part {
         this.rang = rang;
     }
 
-    public List<Model> getModeli() {
+    public List<Model> getModels() {
         return models;
     }
+    public void setModels(List<Model> models) {
+        this.models = models;
+    }
 
-    public void setModeli(List<Model> modeli) {
-        this.models = modeli;
+    public Shop getShop() {
+        return shop;
+    }
+
+    public void setShop(Shop shop) {
+        this.shop = shop;
     }
 }
