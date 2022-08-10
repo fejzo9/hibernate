@@ -22,7 +22,7 @@ public class ShopService {
 
     public List<Shop> getShops(){ return shopRepository.findAll();}
 
-    public Shop getPartById(UUID id) throws Exception{
+    public Shop getShopById(UUID id) throws Exception{
         Optional<Shop> optShop = shopRepository.findById(id);
 
         if (optShop.isEmpty()) {

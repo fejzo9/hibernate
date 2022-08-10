@@ -12,10 +12,10 @@ public class User {
     @Id
     @Column(name = "id")
     private UUID id;
-    @Column(name = "name ")
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "address ")
+    @Column(name = "address")
     private String address;
 
     @OneToMany(mappedBy = "user")
