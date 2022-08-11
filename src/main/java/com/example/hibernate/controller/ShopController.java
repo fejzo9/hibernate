@@ -1,5 +1,6 @@
 package com.example.hibernate.controller;
 
+import com.example.hibernate.model.AddShop;
 import com.example.hibernate.model.Model;
 import com.example.hibernate.model.Shop;
 import com.example.hibernate.service.ShopService;
@@ -45,7 +46,7 @@ public class ShopController {
     }
 
     @PostMapping("/shops")
-    public ResponseEntity<Shop> createShop(@RequestBody Shop shop) {
+    public ResponseEntity<Shop> createShop(@RequestBody AddShop shop) {
         try{
             return new ResponseEntity<>(shopService.addShop(shop), HttpStatus.CREATED);
         } catch (Exception e) {

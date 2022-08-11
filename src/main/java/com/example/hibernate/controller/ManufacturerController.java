@@ -1,5 +1,6 @@
 package com.example.hibernate.controller;
 
+import com.example.hibernate.model.AddManufacturer;
 import com.example.hibernate.model.Car;
 import com.example.hibernate.model.Manufacturer;
 import com.example.hibernate.service.ManufacturerService;
@@ -45,7 +46,7 @@ public class ManufacturerController {
     }
 
     @PostMapping("/manufacturer")
-    public ResponseEntity<Manufacturer> createManufacturer(@RequestBody Manufacturer manufacturer) {
+    public ResponseEntity<Manufacturer> createManufacturer(@RequestBody AddManufacturer manufacturer) {
         try{
             return new ResponseEntity<>(manufacturerService.addManufacturer(manufacturer), HttpStatus.CREATED);
         } catch (Exception e) {

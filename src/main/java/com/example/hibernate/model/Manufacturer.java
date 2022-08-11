@@ -24,10 +24,11 @@ public class Manufacturer {
 
     //constructors
     public Manufacturer(){}
-    public Manufacturer(String name, List<Car> cars) {
+    public Manufacturer(String name, List<Car> cars, List<Model> models){
         this.id = UUID.randomUUID();
         this.name = name;
         this.cars = cars;
+        this.models = models;
     }
 
     //getters & setters

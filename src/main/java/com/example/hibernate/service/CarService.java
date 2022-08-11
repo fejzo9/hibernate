@@ -31,7 +31,7 @@ public class CarService {
             return optCar.get();
     }
 
-    public Car addCar(AddCar addCar)
+    public Car addCar(final AddCar addCar)
     {
         return carRepository.save(new Car(addCar.yearOfManufacture(),addCar.registerNumber(), addCar.user(), addCar.manufacturer()));
     }

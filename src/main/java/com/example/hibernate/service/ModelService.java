@@ -1,5 +1,6 @@
 package com.example.hibernate.service;
 
+import com.example.hibernate.model.AddModel;
 import com.example.hibernate.model.Manufacturer;
 import com.example.hibernate.model.Model;
 import com.example.hibernate.repository.ModelRepository;
@@ -31,9 +32,9 @@ public class ModelService {
             return optModel.get();
     }
 
-    public Model addModel(Model model)
+    public Model addModel(final AddModel addModel)
     {
-        return modelRepository.save(model);
+        return modelRepository.save(new Model(addModel.name(), addModel.parts()));
     }
 
     public Model updateModel(@PathVariable("id") UUID id, @RequestBody Model model){

@@ -1,5 +1,6 @@
 package com.example.hibernate.service;
 
+import com.example.hibernate.model.AddPart;
 import com.example.hibernate.model.Model;
 import com.example.hibernate.model.Part;
 import com.example.hibernate.repository.PartRepository;
@@ -31,7 +32,7 @@ public class PartService {
             return optPart.get();
     }
 
-    public Part addPart(Part part) { return partRepository.save(part);}
+    public Part addPart(final AddPart addPart) { return partRepository.save(new Part(addPart.name(),addPart.price(), addPart.rang(),addPart.models(), addPart.shop()));}
 
     public Part updatePart(@PathVariable("id") UUID id, @RequestBody Part part){
         if (part.getId() == id) {
