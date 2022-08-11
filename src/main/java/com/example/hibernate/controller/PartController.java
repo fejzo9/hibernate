@@ -43,7 +43,7 @@ public class PartController {
         }
     }
 
-    @PostMapping("parts")
+    @PostMapping("/parts")
     public ResponseEntity<Part> createPart(@RequestBody Part part) {
         try{
             return new ResponseEntity<>(partService.addPart(part), HttpStatus.CREATED);

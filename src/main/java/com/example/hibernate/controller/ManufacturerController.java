@@ -44,7 +44,7 @@ public class ManufacturerController {
         }
     }
 
-    @PostMapping("manufacturer")
+    @PostMapping("/manufacturer")
     public ResponseEntity<Manufacturer> createManufacturer(@RequestBody Manufacturer manufacturer) {
         try{
             return new ResponseEntity<>(manufacturerService.addManufacturer(manufacturer), HttpStatus.CREATED);

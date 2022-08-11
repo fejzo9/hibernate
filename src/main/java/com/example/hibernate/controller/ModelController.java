@@ -43,7 +43,7 @@ public class ModelController {
         }
     }
 
-    @PostMapping("models")
+    @PostMapping("/models")
     public ResponseEntity<Model> createModel(@RequestBody Model model) {
         try{
             return new ResponseEntity<>(modelService.addModel(model), HttpStatus.CREATED);

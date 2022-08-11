@@ -32,7 +32,7 @@ public class CarService {
 
     public Car addCar(Car car)
     {
-        return carRepository.save(car);
+        return carRepository.save(new Car(car.getYearOfManufacture(),car.getRegisterNumber()));
     }
 
     public Car updateCar(@PathVariable("id") UUID id, @RequestBody Car car){

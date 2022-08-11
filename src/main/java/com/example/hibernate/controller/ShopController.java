@@ -44,7 +44,7 @@ public class ShopController {
         }
     }
 
-    @PostMapping("shops")
+    @PostMapping("/shops")
     public ResponseEntity<Shop> createShop(@RequestBody Shop shop) {
         try{
             return new ResponseEntity<>(shopService.addShop(shop), HttpStatus.CREATED);

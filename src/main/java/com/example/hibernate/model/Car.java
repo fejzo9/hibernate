@@ -27,6 +27,11 @@ public class Car {
     public Car() {
     }
 
+    public Car (int yearOfManufacture, String registerNumber)
+    {
+        this.yearOfManufacture = yearOfManufacture;
+        this.registerNumber = registerNumber;
+    }
     public Car(int yearOfManufacture, User user) {
         this.id = UUID.randomUUID();
         this.yearOfManufacture = yearOfManufacture;
