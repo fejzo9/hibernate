@@ -1,5 +1,6 @@
 package com.example.hibernate.controller;
 
+import com.example.hibernate.model.AddCar;
 import com.example.hibernate.model.AddUser;
 import com.example.hibernate.model.Car;
 import com.example.hibernate.model.User;
@@ -46,7 +47,7 @@ public class CarController {
     }
 
     @PostMapping("/cars")
-    public ResponseEntity<Car> createCar(@RequestBody Car car) {
+    public ResponseEntity<Car> createCar(@RequestBody AddCar car) {
         try {
             return new ResponseEntity<>(carService.addCar(car), HttpStatus.CREATED);
         } catch (Exception e) {

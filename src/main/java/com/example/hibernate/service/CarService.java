@@ -1,5 +1,6 @@
 package com.example.hibernate.service;
 
+import com.example.hibernate.model.AddCar;
 import com.example.hibernate.model.Car;
 import com.example.hibernate.model.User;
 import com.example.hibernate.repository.CarRepository;
@@ -30,9 +31,9 @@ public class CarService {
             return optCar.get();
     }
 
-    public Car addCar(Car car)
+    public Car addCar(AddCar addCar)
     {
-        return carRepository.save(new Car(car.getYearOfManufacture(),car.getRegisterNumber()));
+        return carRepository.save(new Car(addCar.yearOfManufacture(),addCar.registerNumber(), addCar.user(), addCar.manufacturer()));
     }
 
     public Car updateCar(@PathVariable("id") UUID id, @RequestBody Car car){
