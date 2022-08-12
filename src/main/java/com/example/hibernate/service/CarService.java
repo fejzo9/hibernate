@@ -38,10 +38,12 @@ public class CarService {
 
     public Car updateCar(@PathVariable("id") UUID id, @RequestBody Car car){
 
-        Car carPom = carRepository.getReferenceById(id);
+        Car carPom = carRepository.findById(id).get();
         if (carPom.getId() == id) {
             carPom.setRegisterNumber(car.getRegisterNumber());
             carPom.setYearOfManufacture(car.getYearOfManufacture());
+            carPom.setUser(car.getUser());
+            carPom.setManufacturer(car.getManufacturer());
             return carPom;
         }
         return car;

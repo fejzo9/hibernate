@@ -38,7 +38,7 @@ public class ManufacturerService {
 
     public Manufacturer updateManufacturer(@PathVariable("id") UUID id, @RequestBody Manufacturer manufacturer){
 
-        Manufacturer manufacturerPom = manufacturerRepository.getById(id);
+        Manufacturer manufacturerPom = manufacturerRepository.findById(id).get();
         if (manufacturerPom.getId() == id) {
             manufacturerPom.setName(manufacturer.getName());
             manufacturerPom.setCars(manufacturer.getCars());

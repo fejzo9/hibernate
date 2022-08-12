@@ -38,7 +38,7 @@ public class ModelService {
     }
 
     public Model updateModel(@PathVariable("id") UUID id, @RequestBody Model model){
-        Model modelPom= modelRepository.getById(id);
+        Model modelPom= modelRepository.findById(id).get();
         if (modelPom.getId() == id) {
             modelPom.setName(model.getName());
             modelPom.setParts(model.getParts());

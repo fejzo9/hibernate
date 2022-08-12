@@ -36,7 +36,7 @@ public class ShopService {
 
     public Shop updateShop(@PathVariable("id") UUID id, @RequestBody Shop shop){
 
-        Shop shopPom= shopRepository.getById(id);
+        Shop shopPom= shopRepository.findById(id).get();
         if (shopPom.getId() == id) {
             shopPom.setName(shop.getName());
             shopPom.setParts(shop.getParts());

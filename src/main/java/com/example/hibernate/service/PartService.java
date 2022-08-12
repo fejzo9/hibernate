@@ -35,7 +35,7 @@ public class PartService {
     public Part addPart(final AddPart addPart) { return partRepository.save(new Part(addPart.name(),addPart.price(), addPart.rang(),addPart.models(), addPart.shop()));}
 
     public Part updatePart(@PathVariable("id") UUID id, @RequestBody Part part){
-        Part partPom= partRepository.getById(id);
+        Part partPom= partRepository.findById(id).get();
         if (partPom.getId() == id) {
            partPom.setName(part.getName());
            partPom.setPrice(part.getPrice());
