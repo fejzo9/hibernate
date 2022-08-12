@@ -42,14 +42,11 @@ public class UserService {
 
     public User updateUser(@PathVariable("id") UUID id, @RequestBody User user) {
 
-        if (user.getId() == id) {
-//            userRepository.exists()
-//            userRepository.save()
-            User userPom = userRepository.getById(id);
+        User userPom = userRepository.findById(id).get();
+        if (userPom.getId() == id) {
             userPom.setName(user.getName());
             userPom.setAdress(user.getAdress());
             return userPom;
-
         }
         return user;
     }

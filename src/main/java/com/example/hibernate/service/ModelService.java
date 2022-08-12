@@ -38,8 +38,8 @@ public class ModelService {
     }
 
     public Model updateModel(@PathVariable("id") UUID id, @RequestBody Model model){
-        if (model.getId() == id) {
-            Model modelPom= modelRepository.getById(id);
+        Model modelPom= modelRepository.getById(id);
+        if (modelPom.getId() == id) {
             modelPom.setName(model.getName());
             modelPom.setParts(model.getParts());
             return modelPom;

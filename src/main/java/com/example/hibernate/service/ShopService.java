@@ -35,8 +35,9 @@ public class ShopService {
     public Shop addShop(final AddShop addShop) { return shopRepository.save(new Shop(addShop.name(), addShop.parts()));}
 
     public Shop updateShop(@PathVariable("id") UUID id, @RequestBody Shop shop){
-        if (shop.getId() == id) {
-            Shop shopPom= shopRepository.getById(id);
+
+        Shop shopPom= shopRepository.getById(id);
+        if (shopPom.getId() == id) {
             shopPom.setName(shop.getName());
             shopPom.setParts(shop.getParts());
             return shopPom;
