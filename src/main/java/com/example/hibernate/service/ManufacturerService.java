@@ -1,5 +1,6 @@
 package com.example.hibernate.service;
 
+import com.example.hibernate.model.AddManufacturer;
 import com.example.hibernate.model.Car;
 import com.example.hibernate.model.Manufacturer;
 import com.example.hibernate.repository.ManufacturerRepository;
@@ -30,14 +31,15 @@ public class ManufacturerService {
             return optManufacturer.get();
     }
 
-    public Manufacturer addManufacturer(Manufacturer manufacturer)
+    public Manufacturer addManufacturer(final AddManufacturer addManufacturer)
     {
-        return manufacturerRepository.save(manufacturer);
+        return manufacturerRepository.save(new Manufacturer(addManufacturer.name(), addManufacturer.cars(), addManufacturer.models()));
     }
 
-    public Manufacturer updateManufacturer(@PathVariable("id") UUID id, @RequestBody Manufacturer manufacturer){
-        if (manufacturer.getId() == id) {
-            Manufacturer manufacturerPom = manufacturerRepository.getById(id);
+    public Manufacturer updateManufacturer(UUID id, Manufacturer manufacturer){
+
+        Manufacturer manufacturerPom = manufacturerRepository.findById(id).get();
+        if (manufacturerPom.getId() == id) {
             manufacturerPom.setName(manufacturer.getName());
             manufacturerPom.setCars(manufacturer.getCars());
             manufacturerPom.setModels(manufacturer.getModels());
@@ -46,7 +48,7 @@ public class ManufacturerService {
         return manufacturer;
     }
 
-    public Manufacturer deleteById(@PathVariable("id") UUID id) {
+    public Manufacturer deleteById(UUID id) {
         manufacturerRepository.deleteById(id);
         return new Manufacturer();
     }

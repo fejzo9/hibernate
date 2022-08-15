@@ -19,6 +19,8 @@ public class Car {
     @ManyToOne
     @JoinColumn(name = "user_id")
     User user;
+
+
     @ManyToOne
     @JoinColumn(name = "manufacturer_id")
     Manufacturer manufacturer;
@@ -27,6 +29,11 @@ public class Car {
     public Car() {
     }
 
+    public Car (int yearOfManufacture, String registerNumber)
+    {
+        this.yearOfManufacture = yearOfManufacture;
+        this.registerNumber = registerNumber;
+    }
     public Car(int yearOfManufacture, User user) {
         this.id = UUID.randomUUID();
         this.yearOfManufacture = yearOfManufacture;
@@ -38,6 +45,14 @@ public class Car {
         this.yearOfManufacture = yearOfManufacture;
         this.registerNumber = registerNumber;
         this.user = user;
+    }
+
+    public Car(int yearOfManufacture, String registerNumber, User user, Manufacturer manufacturer) {
+        this.id = UUID.randomUUID();
+        this.yearOfManufacture = yearOfManufacture;
+        this.registerNumber = registerNumber;
+        this.user = user;
+        this.manufacturer = manufacturer;
     }
 
     //getters & setters
@@ -67,5 +82,13 @@ public class Car {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Manufacturer getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(Manufacturer manufacturer) {
+        this.manufacturer = manufacturer;
     }
 }

@@ -1,5 +1,6 @@
 package com.example.hibernate.service;
 
+import com.example.hibernate.model.AddPart;
 import com.example.hibernate.model.Model;
 import com.example.hibernate.model.Part;
 import com.example.hibernate.repository.PartRepository;
@@ -31,11 +32,11 @@ public class PartService {
             return optPart.get();
     }
 
-    public Part addPart(Part part) { return partRepository.save(part);}
+    public Part addPart(final AddPart addPart) { return partRepository.save(new Part(addPart.name(),addPart.price(), addPart.rang(),addPart.models(), addPart.shop()));}
 
-    public Part updatePart(@PathVariable("id") UUID id, @RequestBody Part part){
-        if (part.getId() == id) {
-            Part partPom= partRepository.getById(id);
+    public Part updatePart(UUID id, Part part){
+        Part partPom= partRepository.findById(id).get();
+        if (partPom.getId() == id) {
            partPom.setName(part.getName());
            partPom.setPrice(part.getPrice());
            partPom.setRang(part.getRang());
@@ -46,7 +47,7 @@ public class PartService {
         return part;
     }
 
-    public Part deleteById(@PathVariable("id") UUID id) {
+    public Part deleteById(UUID id) {
         partRepository.deleteById(id);
         return new Part();
     }

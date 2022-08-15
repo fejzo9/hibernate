@@ -9,9 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class UserService {
@@ -40,32 +38,30 @@ public class UserService {
         return userRepository.save(new User(addUser.name(), addUser.address()));
     }
 
-    public User updateUser(@PathVariable("id") UUID id, @RequestBody User user) {
+    public User updateUser(UUID id, User user) {
 
-        if (user.getId() == id) {
-//            userRepository.exists()
-//            userRepository.save()
-            User userPom = userRepository.getById(id);
+        User userPom = userRepository.findById(id).get();
+        if/*(userPom.isEmpty())
+        {throw new Exception("error.../nThe user you are trying to find does not exist!/nTry with other id!");}
+        else */(userPom.getId() == id) {
             userPom.setName(user.getName());
             userPom.setAdress(user.getAdress());
             return userPom;
-
         }
         return user;
     }
 
-    public User deleteById(@PathVariable("id") UUID id) {
-        userRepository.deleteById(id);
-        return new User();
+    public User deleteById(UUID id) throws Exception{
+        Optional<User> optUser = userRepository.findById(id);
+
+        if (optUser.isEmpty()) {
+            throw new Exception("error.../n The value is not present!");
+        } else
+            return optUser.get();
     }
 
-    public ResponseEntity<HttpStatus> deleteAllUsers() {
-        try {
-            userRepository.deleteAll();
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public void deleteAllUsers() {
+      userRepository.deleteAll();
     }
 
 }

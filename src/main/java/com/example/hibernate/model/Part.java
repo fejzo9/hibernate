@@ -43,6 +43,14 @@ public class Part {
         this.price = price;
     }
 
+    public Part(String name, Double price, Rang rang, List<Model> models, Shop shop) {
+        this.name = name;
+        this.price = price;
+        this.rang = rang;
+        this.models = models;
+        this.shop = shop;
+    }
+
     //getters & setters
 
     public UUID getId() {
