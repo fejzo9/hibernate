@@ -37,7 +37,7 @@ public class ModelService {
         return modelRepository.save(new Model(addModel.name(), addModel.parts()));
     }
 
-    public Model updateModel(@PathVariable("id") UUID id, @RequestBody Model model){
+    public Model updateModel(UUID id, Model model){
         Model modelPom= modelRepository.findById(id).get();
         if (modelPom.getId() == id) {
             modelPom.setName(model.getName());
@@ -47,7 +47,7 @@ public class ModelService {
         return model;
     }
 
-    public Model deleteById(@PathVariable("id") UUID id) {
+    public Model deleteById(UUID id) {
         modelRepository.deleteById(id);
         return new Model();
     }

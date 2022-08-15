@@ -36,7 +36,7 @@ public class CarService {
         return carRepository.save(new Car(addCar.yearOfManufacture(),addCar.registerNumber(), addCar.user(), addCar.manufacturer()));
     }
 
-    public Car updateCar(@PathVariable("id") UUID id, @RequestBody Car car){
+    public Car updateCar(UUID id, Car car){
 
         Car carPom = carRepository.findById(id).get();
         if (carPom.getId() == id) {
@@ -49,7 +49,7 @@ public class CarService {
         return car;
     }
 
-    public Car deleteById(@PathVariable("id") UUID id) {
+    public Car deleteById(UUID id) {
         carRepository.deleteById(id);
         return new Car();
     }

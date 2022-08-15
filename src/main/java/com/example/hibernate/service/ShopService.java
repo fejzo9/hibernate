@@ -34,7 +34,7 @@ public class ShopService {
 
     public Shop addShop(final AddShop addShop) { return shopRepository.save(new Shop(addShop.name(), addShop.parts()));}
 
-    public Shop updateShop(@PathVariable("id") UUID id, @RequestBody Shop shop){
+    public Shop updateShop(UUID id, Shop shop){
 
         Shop shopPom= shopRepository.findById(id).get();
         if (shopPom.getId() == id) {
@@ -45,7 +45,7 @@ public class ShopService {
         return shop;
     }
 
-    public Shop deleteById(@PathVariable("id") UUID id) {
+    public Shop deleteById(UUID id) {
         shopRepository.deleteById(id);
         return new Shop();
     }

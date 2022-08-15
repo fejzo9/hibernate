@@ -36,7 +36,7 @@ public class ManufacturerService {
         return manufacturerRepository.save(new Manufacturer(addManufacturer.name(), addManufacturer.cars(), addManufacturer.models()));
     }
 
-    public Manufacturer updateManufacturer(@PathVariable("id") UUID id, @RequestBody Manufacturer manufacturer){
+    public Manufacturer updateManufacturer(UUID id, Manufacturer manufacturer){
 
         Manufacturer manufacturerPom = manufacturerRepository.findById(id).get();
         if (manufacturerPom.getId() == id) {
@@ -48,7 +48,7 @@ public class ManufacturerService {
         return manufacturer;
     }
 
-    public Manufacturer deleteById(@PathVariable("id") UUID id) {
+    public Manufacturer deleteById(UUID id) {
         manufacturerRepository.deleteById(id);
         return new Manufacturer();
     }

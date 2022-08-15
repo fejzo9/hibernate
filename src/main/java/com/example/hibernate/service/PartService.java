@@ -34,7 +34,7 @@ public class PartService {
 
     public Part addPart(final AddPart addPart) { return partRepository.save(new Part(addPart.name(),addPart.price(), addPart.rang(),addPart.models(), addPart.shop()));}
 
-    public Part updatePart(@PathVariable("id") UUID id, @RequestBody Part part){
+    public Part updatePart(UUID id, Part part){
         Part partPom= partRepository.findById(id).get();
         if (partPom.getId() == id) {
            partPom.setName(part.getName());
@@ -47,7 +47,7 @@ public class PartService {
         return part;
     }
 
-    public Part deleteById(@PathVariable("id") UUID id) {
+    public Part deleteById(UUID id) {
         partRepository.deleteById(id);
         return new Part();
     }
