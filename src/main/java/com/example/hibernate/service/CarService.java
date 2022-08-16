@@ -49,9 +49,13 @@ public class CarService {
         return car;
     }
 
-    public Car deleteById(UUID id) {
-        carRepository.deleteById(id);
-        return new Car();
+    public Car deleteById(UUID id) throws Exception{
+        Optional<Car> optCar = carRepository.findById(id);
+
+        if (optCar.isEmpty()) {
+            throw new Exception("error.../n The value is not present!/nDid not find the car");
+        } else{ carRepository.deleteById(id);
+            return optCar.get();}
     }
 
     public void deleteAllCars(){
