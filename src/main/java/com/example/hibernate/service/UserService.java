@@ -2,6 +2,7 @@ package com.example.hibernate.service;
 
 
 import com.example.hibernate.model.AddUser;
+import com.example.hibernate.model.UpdateUser;
 import com.example.hibernate.model.User;
 import com.example.hibernate.repository.UserRepository;
 
@@ -38,17 +39,17 @@ public class UserService {
         return userRepository.save(new User(addUser.name(), addUser.address()));
     }
 
-    public User updateUser(UUID id, User user) {
+    public User updateUser(UUID id, UpdateUser updateUser) throws EntityNotFoundException {
 
-        User userPom = userRepository.findById(id).get();
-        if/*(userPom.isEmpty())
-        {throw new Exception("error.../nThe user you are trying to find does not exist!/nTry with other id!");}
-        else */ (userPom.getId() == id) {
-            userPom.setName(user.getName());
-            userPom.setAdress(user.getAdress());
-            return userPom;
+        Optional<User> optUser = userRepository.findById(id);
+        if(optUser.isEmpty())
+        {throw new EntityNotFoundException("error.../nThe user you are trying to find does not exist!/nTry with other id!");}
+        else /*if (userPom.getId() == id) */{
+            User user = userRepository.findById(id).get();
+            user.setName(updateUser.name());
+            user.setAdress(updateUser.address());
+            return userRepository.save(new User(updateUser.name(), updateUser.address()));
         }
-        return user;
     }
 
     public User deleteById(UUID id) throws Exception {

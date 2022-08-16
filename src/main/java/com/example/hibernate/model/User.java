@@ -29,6 +29,7 @@ public class User {
         this.id = UUID.randomUUID();
         this.name = name;
     }
+
     public User(String name, String address) {
         this.id = UUID.randomUUID();
         this.name = name;
@@ -48,9 +49,13 @@ public class User {
         this.name = name;
     }
 
-    public String getAdress() {return address;}
+    public String getAdress() {
+        return address;
+    }
 
-    public void setAdress(String adress) {this.address = adress;}
+    public void setAdress(String adress) {
+        this.address = adress;
+    }
 
     public List<Car> getCars() {
         return cars;
@@ -59,4 +64,5 @@ public class User {
     public void setCars(List<Car> cars) {
         this.cars = cars;
     }
+
 }

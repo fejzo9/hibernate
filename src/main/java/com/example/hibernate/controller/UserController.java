@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import com.example.hibernate.model.AddUser;
+import com.example.hibernate.model.UpdateUser;
 import com.example.hibernate.model.User;
 import com.example.hibernate.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -55,9 +56,9 @@ public class UserController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<User> updateUser(@PathVariable("id") UUID id, @RequestBody User user) {
+    public ResponseEntity<User> updateUser(@PathVariable("id") UUID id, @RequestBody UpdateUser updateUser) {
         try {
-            return new ResponseEntity<>(userService.updateUser(id, user), HttpStatus.OK);
+            return new ResponseEntity<>(userService.updateUser(id, updateUser), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
