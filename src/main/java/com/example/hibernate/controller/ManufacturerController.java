@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/manufacturer")
 public class ManufacturerController {
 
     private final ManufacturerService manufacturerService;
@@ -21,7 +21,7 @@ public class ManufacturerController {
         this.manufacturerService = manufacturerService;
     }
 
-    @GetMapping("/manufacturers")
+    @GetMapping("")
     public ResponseEntity<List<Manufacturer>> getAllManufacturers(){
         try {
             List<Manufacturer> manufacturers = manufacturerService.getManufacturers();
@@ -35,7 +35,7 @@ public class ManufacturerController {
         }
     }
 
-    @GetMapping("/manufacturers/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<Manufacturer> getManufacturerById(@PathVariable("id") UUID id){
         try {
             Manufacturer manufacturer = manufacturerService.getManufacturerById(id);
@@ -45,7 +45,7 @@ public class ManufacturerController {
         }
     }
 
-    @PostMapping("/manufacturer")
+    @PostMapping("")
     public ResponseEntity<Manufacturer> createManufacturer(@RequestBody AddManufacturer manufacturer) {
         try{
             return new ResponseEntity<>(manufacturerService.addManufacturer(manufacturer), HttpStatus.CREATED);
@@ -53,7 +53,7 @@ public class ManufacturerController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @PutMapping("/manufacturer/{id}")
+    @PutMapping("{id}")
     public ResponseEntity<Manufacturer> updateManufacturer(@PathVariable("id") UUID id, @RequestBody Manufacturer manufacturer){
         try {
             return new ResponseEntity<>(manufacturerService.updateManufacturer(id,manufacturer), HttpStatus.OK);
@@ -62,7 +62,7 @@ public class ManufacturerController {
         }
     }
 
-    @DeleteMapping("/manufacturer/{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity<Manufacturer> deleteManufacturer(@PathVariable("id") UUID id) {
         try {
             return new ResponseEntity<>(manufacturerService.deleteById(id), HttpStatus.ACCEPTED);
@@ -71,7 +71,7 @@ public class ManufacturerController {
         }
     }
 
-    @DeleteMapping("/manufacturers")
+    @DeleteMapping("")
     public ResponseEntity<HttpStatus> deleteAllManufacturers() {
         try{
             manufacturerService.deleteAllManufacturers();
