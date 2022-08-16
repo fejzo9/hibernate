@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/part")
 public class PartController {
     private final PartService partService;
 
@@ -20,7 +20,7 @@ public class PartController {
         this.partService = partService;
     }
 
-    @GetMapping("/parts")
+    @GetMapping("")
     public ResponseEntity<List<Part>> getAllParts(){
         try {
             List<Part> parts = partService.getPart();
@@ -34,7 +34,7 @@ public class PartController {
         }
     }
 
-    @GetMapping("/parts/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<Part> getPartById(@PathVariable("id") UUID id){
         try {
             Part part = partService.getPartById(id);
@@ -44,7 +44,7 @@ public class PartController {
         }
     }
 
-    @PostMapping("/parts")
+    @PostMapping("")
     public ResponseEntity<Part> createPart(@RequestBody AddPart part) {
         try{
             return new ResponseEntity<>(partService.addPart(part), HttpStatus.CREATED);
@@ -53,7 +53,7 @@ public class PartController {
         }
     }
 
-    @PutMapping("/parts/{id}")
+    @PutMapping("{id}")
     public ResponseEntity<Part> updatePart(@PathVariable("id") UUID id, @RequestBody Part part){
         try {
             return new ResponseEntity<>(partService.updatePart(id,part), HttpStatus.OK);
@@ -62,7 +62,7 @@ public class PartController {
         }
     }
 
-    @DeleteMapping("/part/{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity<Part> deletePart(@PathVariable("id") UUID id) {
         try {
             return new ResponseEntity<>(partService.deleteById(id), HttpStatus.ACCEPTED);
@@ -71,7 +71,7 @@ public class PartController {
         }
     }
 
-    @DeleteMapping("/parts")
+    @DeleteMapping("")
     public ResponseEntity<HttpStatus> deleteAllParts() {
         try{
             partService.deleteAllModels();
