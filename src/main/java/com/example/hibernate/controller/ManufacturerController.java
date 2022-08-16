@@ -38,8 +38,7 @@ public class ManufacturerController {
     @GetMapping("{id}")
     public ResponseEntity<Manufacturer> getManufacturerById(@PathVariable("id") UUID id){
         try {
-            Manufacturer manufacturer = manufacturerService.getManufacturerById(id);
-            return new ResponseEntity<>(manufacturer,HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(manufacturerService.getManufacturerById(id), HttpStatus.ACCEPTED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
