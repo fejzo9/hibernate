@@ -1,6 +1,7 @@
 package com.example.hibernate.service;
 
 import com.example.hibernate.model.AddShop;
+import com.example.hibernate.model.Car;
 import com.example.hibernate.model.Part;
 import com.example.hibernate.model.Shop;
 import com.example.hibernate.repository.ShopRepository;
@@ -45,9 +46,14 @@ public class ShopService {
         return shop;
     }
 
-    public Shop deleteById(UUID id) {
-        shopRepository.deleteById(id);
-        return new Shop();
+    public Shop deleteById(UUID id) throws Exception{
+        Optional<Shop> optionalShop = shopRepository.findById(id);
+
+        if (optionalShop.isEmpty()) {
+            throw new Exception("error.../n The value is not present!/nDid not find the shop!");
+        } else{ shopRepository.deleteById(id);
+            return optionalShop.get();}
+
     }
 
     public void deleteAllModels(){
