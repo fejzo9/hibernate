@@ -22,7 +22,7 @@ public class ManufacturerController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<Manufacturer>> getAllManufacturers(){
+    public ResponseEntity<List<Manufacturer>> getAllManufacturers() {
         try {
             List<Manufacturer> manufacturers = manufacturerService.getManufacturers();
 
@@ -36,7 +36,7 @@ public class ManufacturerController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Manufacturer> getManufacturerById(@PathVariable("id") UUID id){
+    public ResponseEntity<Manufacturer> getManufacturerById(@PathVariable("id") UUID id) {
         try {
             return new ResponseEntity<>(manufacturerService.getManufacturerById(id), HttpStatus.ACCEPTED);
         } catch (Exception e) {
@@ -46,16 +46,17 @@ public class ManufacturerController {
 
     @PostMapping("")
     public ResponseEntity<Manufacturer> createManufacturer(@RequestBody AddManufacturer manufacturer) {
-        try{
+        try {
             return new ResponseEntity<>(manufacturerService.addManufacturer(manufacturer), HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
     @PutMapping("{id}")
-    public ResponseEntity<Manufacturer> updateManufacturer(@PathVariable("id") UUID id, @RequestBody Manufacturer manufacturer){
+    public ResponseEntity<Manufacturer> updateManufacturer(@PathVariable("id") UUID id, @RequestBody Manufacturer manufacturer) {
         try {
-            return new ResponseEntity<>(manufacturerService.updateManufacturer(id,manufacturer), HttpStatus.OK);
+            return new ResponseEntity<>(manufacturerService.updateManufacturer(id, manufacturer), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -72,11 +73,10 @@ public class ManufacturerController {
 
     @DeleteMapping("")
     public ResponseEntity<HttpStatus> deleteAllManufacturers() {
-        try{
+        try {
             manufacturerService.deleteAllManufacturers();
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

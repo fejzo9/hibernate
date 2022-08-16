@@ -21,23 +21,23 @@ public class ManufacturerService {
         this.manufacturerRepository = manufacturerRepository;
     }
 
-    public List<Manufacturer> getManufacturers(){ return manufacturerRepository.findAll();}
+    public List<Manufacturer> getManufacturers() {
+        return manufacturerRepository.findAll();
+    }
 
-    public Manufacturer getManufacturerById(UUID id) throws Exception{
+    public Manufacturer getManufacturerById(UUID id) throws Exception {
         Optional<Manufacturer> optManufacturer = manufacturerRepository.findById(id);
 
         if (optManufacturer.isEmpty()) {
             throw new Exception("error.../n The value is not present!");
-        } else
-            return optManufacturer.get();
+        } else return optManufacturer.get();
     }
 
-    public Manufacturer addManufacturer(final AddManufacturer addManufacturer)
-    {
+    public Manufacturer addManufacturer(final AddManufacturer addManufacturer) {
         return manufacturerRepository.save(new Manufacturer(addManufacturer.name(), addManufacturer.cars(), addManufacturer.models()));
     }
 
-    public Manufacturer updateManufacturer(UUID id, Manufacturer manufacturer){
+    public Manufacturer updateManufacturer(UUID id, Manufacturer manufacturer) {
 
         Manufacturer manufacturerPom = manufacturerRepository.findById(id).get();
         if (manufacturerPom.getId() == id) {
@@ -54,12 +54,14 @@ public class ManufacturerService {
 
         if (optionalManufacturer.isEmpty()) {
             throw new Exception("error.../n The value is not present!/nDid not find the manufecturer!");
-        } else{ manufacturerRepository.deleteById(id);
-            return optionalManufacturer.get();}
-        //
+        } else {
+            manufacturerRepository.deleteById(id);
+            return optionalManufacturer.get();
+        }
+
     }
 
-    public void deleteAllManufacturers(){
+    public void deleteAllManufacturers() {
         manufacturerRepository.deleteAll();
     }
 
