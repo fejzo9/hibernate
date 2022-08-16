@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/model")
 public class ModelController {
 
     private final ModelService modelService;
@@ -20,7 +20,7 @@ public class ModelController {
     public ModelController(ModelService modelService) {
         this.modelService = modelService;
     }
-    @GetMapping("/models")
+    @GetMapping("")
     public ResponseEntity<List<Model>> getAllModels(){
         try {
             List<Model> models = modelService.getModels();
@@ -34,7 +34,7 @@ public class ModelController {
         }
     }
 
-    @GetMapping("/models/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<Model> getModelById(@PathVariable("id") UUID id){
         try {
             Model model = modelService.getModelById(id);
@@ -44,7 +44,7 @@ public class ModelController {
         }
     }
 
-    @PostMapping("/models")
+    @PostMapping("")
     public ResponseEntity<Model> createModel(@RequestBody AddModel model) {
         try{
             return new ResponseEntity<>(modelService.addModel(model), HttpStatus.CREATED);
@@ -53,7 +53,7 @@ public class ModelController {
         }
     }
 
-    @PutMapping("/models/{id}")
+    @PutMapping("{id}")
     public ResponseEntity<Model> updateModel(@PathVariable("id") UUID id, @RequestBody Model model){
         try {
             return new ResponseEntity<>(modelService.updateModel(id,model), HttpStatus.OK);
@@ -62,7 +62,7 @@ public class ModelController {
         }
     }
 
-    @DeleteMapping("/models/{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity<Model> deleteModel(@PathVariable("id") UUID id) {
         try {
             return new ResponseEntity<>(modelService.deleteById(id), HttpStatus.ACCEPTED);
@@ -71,7 +71,7 @@ public class ModelController {
         }
     }
 
-    @DeleteMapping("/models")
+    @DeleteMapping("")
     public ResponseEntity<HttpStatus> deleteAllModels() {
         try{
             modelService.deleteAllModels();
