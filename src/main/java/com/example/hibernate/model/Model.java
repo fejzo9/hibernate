@@ -28,12 +28,6 @@ public class Model {
         this.name = name;
     }
 
-    public Model(String name, List<Part> parts)
-    {
-        this.name = name;
-        this.parts = parts;
-    }
-
     //getters & setters
     public UUID getId() {
         return id;

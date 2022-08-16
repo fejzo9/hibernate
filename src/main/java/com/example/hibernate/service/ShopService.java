@@ -1,6 +1,5 @@
 package com.example.hibernate.service;
 
-import com.example.hibernate.model.AddShop;
 import com.example.hibernate.model.Part;
 import com.example.hibernate.model.Shop;
 import com.example.hibernate.repository.ShopRepository;
@@ -32,12 +31,11 @@ public class ShopService {
             return optShop.get();
     }
 
-    public Shop addShop(final AddShop addShop) { return shopRepository.save(new Shop(addShop.name(), addShop.parts()));}
+    public Shop addShop(Shop shop) { return shopRepository.save(shop);}
 
-    public Shop updateShop(UUID id, Shop shop){
-
-        Shop shopPom= shopRepository.findById(id).get();
-        if (shopPom.getId() == id) {
+    public Shop updateShop(@PathVariable("id") UUID id, @RequestBody Shop shop){
+        if (shop.getId() == id) {
+            Shop shopPom= shopRepository.getById(id);
             shopPom.setName(shop.getName());
             shopPom.setParts(shop.getParts());
             return shopPom;
@@ -45,7 +43,7 @@ public class ShopService {
         return shop;
     }
 
-    public Shop deleteById(UUID id) {
+    public Shop deleteById(@PathVariable("id") UUID id) {
         shopRepository.deleteById(id);
         return new Shop();
     }

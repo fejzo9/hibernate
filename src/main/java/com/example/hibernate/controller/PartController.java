@@ -1,6 +1,5 @@
 package com.example.hibernate.controller;
 
-import com.example.hibernate.model.AddPart;
 import com.example.hibernate.model.Model;
 import com.example.hibernate.model.Part;
 import com.example.hibernate.service.PartService;
@@ -44,8 +43,8 @@ public class PartController {
         }
     }
 
-    @PostMapping("/parts")
-    public ResponseEntity<Part> createPart(@RequestBody AddPart part) {
+    @PostMapping("parts")
+    public ResponseEntity<Part> createPart(@RequestBody Part part) {
         try{
             return new ResponseEntity<>(partService.addPart(part), HttpStatus.CREATED);
         } catch (Exception e) {

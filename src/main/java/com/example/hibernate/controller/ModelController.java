@@ -1,6 +1,5 @@
 package com.example.hibernate.controller;
 
-import com.example.hibernate.model.AddModel;
 import com.example.hibernate.model.Manufacturer;
 import com.example.hibernate.model.Model;
 import com.example.hibernate.service.ModelService;
@@ -44,8 +43,8 @@ public class ModelController {
         }
     }
 
-    @PostMapping("/models")
-    public ResponseEntity<Model> createModel(@RequestBody AddModel model) {
+    @PostMapping("models")
+    public ResponseEntity<Model> createModel(@RequestBody Model model) {
         try{
             return new ResponseEntity<>(modelService.addModel(model), HttpStatus.CREATED);
         } catch (Exception e) {
