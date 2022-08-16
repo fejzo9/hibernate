@@ -55,9 +55,9 @@ public class UserService {
         Optional<User> optUser = userRepository.findById(id);
 
         if (optUser.isEmpty()) {
-            throw new Exception("error.../n The value is not present!");
-        } else
-            return optUser.get();
+            throw new Exception("error.../n The value is not present!/nDid not find the user");
+        } else{ userRepository.deleteById(id);
+            return optUser.get();}
     }
 
     public void deleteAllUsers() {

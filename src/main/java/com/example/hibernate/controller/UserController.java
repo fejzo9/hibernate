@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/user")
 public class UserController {
 
     private final UserService userService;
@@ -22,7 +22,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/users")
+    @GetMapping("")
     public ResponseEntity<List<User>> getAllUsers() {
         try {
             List<User> users = userService.list();
@@ -36,7 +36,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<User> getUserById(@PathVariable("id") UUID id) {
         try {
             User user = userService.getUser(id);
@@ -46,7 +46,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("/users")
+    @PostMapping("")
     public ResponseEntity<User> createUser(@RequestBody AddUser user) {
         try {
             return new ResponseEntity<>(userService.newUser(user), HttpStatus.CREATED);
@@ -55,7 +55,7 @@ public class UserController {
         }
     }
 
-    @PutMapping("/users/{id}")
+    @PutMapping("{id}")
     public ResponseEntity<User> updateUser(@PathVariable("id") UUID id, @RequestBody User user) {
         try {
             return new ResponseEntity<>(userService.updateUser(id, user), HttpStatus.OK);
@@ -64,7 +64,7 @@ public class UserController {
         }
     }
 
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity<User> deleteUser(@PathVariable("id") UUID id) {
         try {
             return new ResponseEntity<>(userService.deleteById(id), HttpStatus.ACCEPTED);
@@ -75,7 +75,7 @@ public class UserController {
         }
     }
 
-    @DeleteMapping("/users")
+    @DeleteMapping("")
     public ResponseEntity<HttpStatus> deleteAllUsers() {
 
         try {
