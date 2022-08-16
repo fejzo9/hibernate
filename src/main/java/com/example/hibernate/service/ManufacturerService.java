@@ -56,6 +56,7 @@ public class ManufacturerService {
             throw new Exception("error.../n The value is not present!/nDid not find the shop!");
         } else{ manufacturerRepository.deleteById(id);
             return optionalManufacturer.get();}
+        //
     }
 
     public void deleteAllManufacturers(){
