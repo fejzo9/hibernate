@@ -3,6 +3,7 @@ package com.example.hibernate.service;
 import com.example.hibernate.model.AddManufacturer;
 import com.example.hibernate.model.Car;
 import com.example.hibernate.model.Manufacturer;
+import com.example.hibernate.model.Shop;
 import com.example.hibernate.repository.ManufacturerRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,9 +49,13 @@ public class ManufacturerService {
         return manufacturer;
     }
 
-    public Manufacturer deleteById(UUID id) {
-        manufacturerRepository.deleteById(id);
-        return new Manufacturer();
+    public Manufacturer deleteById(UUID id) throws Exception {
+        Optional<Manufacturer> optionalManufacturer = manufacturerRepository.findById(id);
+
+        if (optionalManufacturer.isEmpty()) {
+            throw new Exception("error.../n The value is not present!/nDid not find the shop!");
+        } else{ manufacturerRepository.deleteById(id);
+            return optionalManufacturer.get();}
     }
 
     public void deleteAllManufacturers(){
