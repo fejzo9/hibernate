@@ -53,7 +53,7 @@ public class CarService {
         Optional<Car> optCar = carRepository.findById(id);
 
         if (optCar.isEmpty()) {
-            throw new Exception("error.../n The value is not present!/nDid not find the car");
+            throw new Exception("error.../n The value is not present!/nDid not find the car!");
         } else{ carRepository.deleteById(id);
             return optCar.get();}
     }
