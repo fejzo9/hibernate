@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/shop")
 public class ShopController {
 
     private final ShopService shopService;
@@ -21,7 +21,7 @@ public class ShopController {
         this.shopService = shopService;
     }
 
-    @GetMapping("/shops")
+    @GetMapping("")
     public ResponseEntity<List<Shop>> getAllShops(){
         try {
             List<Shop> shops = shopService.getShops();
@@ -35,7 +35,7 @@ public class ShopController {
         }
     }
 
-    @GetMapping("/shops/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<Shop> getShopById(@PathVariable("id") UUID id){
         try {
             Shop shop = shopService.getShopById(id);
@@ -45,7 +45,7 @@ public class ShopController {
         }
     }
 
-    @PostMapping("/shops")
+    @PostMapping("")
     public ResponseEntity<Shop> createShop(@RequestBody AddShop shop) {
         try{
             return new ResponseEntity<>(shopService.addShop(shop), HttpStatus.CREATED);
@@ -54,7 +54,7 @@ public class ShopController {
         }
     }
 
-    @PutMapping("/shops/{id}")
+    @PutMapping("{id}")
     public ResponseEntity<Shop> updateShop(@PathVariable("id") UUID id, @RequestBody Shop shop){
         try {
             return new ResponseEntity<>(shopService.updateShop(id,shop), HttpStatus.OK);
@@ -63,7 +63,7 @@ public class ShopController {
         }
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity<Shop> deleteShop(@PathVariable("id") UUID id) {
         try {
             return new ResponseEntity<>(shopService.deleteById(id), HttpStatus.ACCEPTED);
@@ -72,7 +72,7 @@ public class ShopController {
         }
     }
 
-    @DeleteMapping("/shops")
+    @DeleteMapping("")
     public ResponseEntity<HttpStatus> deleteAllShops() {
         try{
             shopService.deleteAllModels();
