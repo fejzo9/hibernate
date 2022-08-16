@@ -47,9 +47,13 @@ public class PartService {
         return part;
     }
 
-    public Part deleteById(UUID id) {
-        partRepository.deleteById(id);
-        return new Part();
+    public Part deleteById(UUID id) throws Exception {
+        Optional<Part> optionalPart = partRepository.findById(id);
+
+        if (optionalPart.isEmpty()) {
+            throw new Exception("error.../n The value is not present!/nDid not find the shop!");
+        } else{ partRepository.deleteById(id);
+            return optionalPart.get();}
     }
 
     public void deleteAllModels(){
