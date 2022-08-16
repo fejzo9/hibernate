@@ -52,11 +52,11 @@ public class UserService {
         }
     }
 
-    public User deleteById(UUID id) throws Exception {
+    public User deleteById(UUID id) throws EntityNotFoundException {
         Optional<User> optUser = userRepository.findById(id);
 
         if (optUser.isEmpty()) {
-            throw new Exception("error.../n The value is not present!/nDid not find the user!");
+            throw new EntityNotFoundException("error.../n Sorry but we could not find a user with that ID/nPlease try again");
         } else {
             userRepository.deleteById(id);
             return optUser.get();

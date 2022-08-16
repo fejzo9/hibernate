@@ -12,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "http://localhost:8081")
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
@@ -55,7 +54,7 @@ public class UserController {
         }
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/id")
     public ResponseEntity<User> updateUser(@PathVariable("id") UUID id, @RequestBody UpdateUser updateUser) {
         try {
             return new ResponseEntity<>(userService.updateUser(id, updateUser), HttpStatus.OK);
@@ -64,12 +63,10 @@ public class UserController {
         }
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/id")
     public ResponseEntity<User> deleteUser(@PathVariable("id") UUID id) {
         try {
             return new ResponseEntity<>(userService.deleteById(id), HttpStatus.ACCEPTED);
-//            userService.deleteById(id);
-//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

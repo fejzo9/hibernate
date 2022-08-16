@@ -63,7 +63,7 @@ public class CarController {
         }
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/id")
     public ResponseEntity<Car> deleteUser(@PathVariable("id") UUID id) {
         try {
             return new ResponseEntity<>(carService.deleteById(id), HttpStatus.ACCEPTED);
