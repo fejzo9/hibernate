@@ -39,8 +39,7 @@ public class CarController {
     @GetMapping("{id}")
     public ResponseEntity<Car> getCarById(@PathVariable("id") UUID id) {
         try {
-            Car car = carService.getCarById(id);
-            return new ResponseEntity<>(car, HttpStatus.OK);
+            return new ResponseEntity<>(carService.getCarById(id), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -54,10 +53,11 @@ public class CarController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
     @PutMapping("{id}")
     public ResponseEntity<Car> updateCar(@PathVariable("id") UUID id, @RequestBody Car car) {
         try {
-            return new ResponseEntity<>(carService.updateCar(id,car), HttpStatus.OK);
+            return new ResponseEntity<>(carService.updateCar(id, car), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -74,13 +74,12 @@ public class CarController {
 
     @DeleteMapping("")
     public ResponseEntity<HttpStatus> deleteAllUsers() {
-         try{
-             carService.deleteAllCars();
-             return new ResponseEntity<>(HttpStatus.ACCEPTED);
-         }
-         catch (Exception e) {
-             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-         }
+        try {
+            carService.deleteAllCars();
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 }

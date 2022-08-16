@@ -21,7 +21,7 @@ public class PartController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<Part>> getAllParts(){
+    public ResponseEntity<List<Part>> getAllParts() {
         try {
             List<Part> parts = partService.getPart();
 
@@ -35,10 +35,9 @@ public class PartController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Part> getPartById(@PathVariable("id") UUID id){
+    public ResponseEntity<Part> getPartById(@PathVariable("id") UUID id) {
         try {
-            Part part = partService.getPartById(id);
-            return new ResponseEntity<>(part,HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(partService.getPartById(id), HttpStatus.ACCEPTED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -46,7 +45,7 @@ public class PartController {
 
     @PostMapping("")
     public ResponseEntity<Part> createPart(@RequestBody AddPart part) {
-        try{
+        try {
             return new ResponseEntity<>(partService.addPart(part), HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -54,9 +53,9 @@ public class PartController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Part> updatePart(@PathVariable("id") UUID id, @RequestBody Part part){
+    public ResponseEntity<Part> updatePart(@PathVariable("id") UUID id, @RequestBody Part part) {
         try {
-            return new ResponseEntity<>(partService.updatePart(id,part), HttpStatus.OK);
+            return new ResponseEntity<>(partService.updatePart(id, part), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -73,11 +72,10 @@ public class PartController {
 
     @DeleteMapping("")
     public ResponseEntity<HttpStatus> deleteAllParts() {
-        try{
+        try {
             partService.deleteAllModels();
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
