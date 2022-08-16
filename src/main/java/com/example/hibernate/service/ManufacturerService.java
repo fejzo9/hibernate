@@ -53,7 +53,7 @@ public class ManufacturerService {
         Optional<Manufacturer> optionalManufacturer = manufacturerRepository.findById(id);
 
         if (optionalManufacturer.isEmpty()) {
-            throw new Exception("error.../n The value is not present!/nDid not find the shop!");
+            throw new Exception("error.../n The value is not present!/nDid not find the manufecturer!");
         } else{ manufacturerRepository.deleteById(id);
             return optionalManufacturer.get();}
         //

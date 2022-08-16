@@ -51,7 +51,7 @@ public class PartService {
         Optional<Part> optionalPart = partRepository.findById(id);
 
         if (optionalPart.isEmpty()) {
-            throw new Exception("error.../n The value is not present!/nDid not find the shop!");
+            throw new Exception("error.../n The value is not present!/nDid not find the part!");
         } else{ partRepository.deleteById(id);
             return optionalPart.get();}
     }

@@ -51,7 +51,7 @@ public class ModelService {
         Optional<Model> optionalModel = modelRepository.findById(id);
 
         if (optionalModel.isEmpty()) {
-            throw new Exception("error.../n The value is not present!/nDid not find the shop!");
+            throw new Exception("error.../n The value is not present!/nDid not find the model!");
         } else{ modelRepository.deleteById(id);
             return optionalModel.get();}
 
