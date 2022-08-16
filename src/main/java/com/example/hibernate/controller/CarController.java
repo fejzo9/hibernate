@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/car")
 public class CarController {
 
     private final CarService carService;
@@ -22,7 +22,7 @@ public class CarController {
         this.carService = carService;
     }
 
-    @GetMapping("/cars")
+    @GetMapping("")
     public ResponseEntity<List<Car>> getAllCars() {
         try {
             List<Car> cars = carService.getCars();
@@ -36,7 +36,7 @@ public class CarController {
         }
     }
 
-    @GetMapping("/cars/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<Car> getCarById(@PathVariable("id") UUID id) {
         try {
             Car car = carService.getCarById(id);
@@ -46,7 +46,7 @@ public class CarController {
         }
     }
 
-    @PostMapping("/cars")
+    @PostMapping("")
     public ResponseEntity<Car> createCar(@RequestBody AddCar car) {
         try {
             return new ResponseEntity<>(carService.addCar(car), HttpStatus.CREATED);
@@ -54,7 +54,7 @@ public class CarController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @PutMapping("/cars/{id}")
+    @PutMapping("{id}")
     public ResponseEntity<Car> updateCar(@PathVariable("id") UUID id, @RequestBody Car car) {
         try {
             return new ResponseEntity<>(carService.updateCar(id,car), HttpStatus.OK);
@@ -63,7 +63,7 @@ public class CarController {
         }
     }
 
-    @DeleteMapping("/cars/{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity<Car> deleteUser(@PathVariable("id") UUID id) {
         try {
             return new ResponseEntity<>(carService.deleteById(id), HttpStatus.ACCEPTED);
@@ -72,7 +72,7 @@ public class CarController {
         }
     }
 
-    @DeleteMapping("/cars")
+    @DeleteMapping("")
     public ResponseEntity<HttpStatus> deleteAllUsers() {
          try{
              carService.deleteAllCars();
