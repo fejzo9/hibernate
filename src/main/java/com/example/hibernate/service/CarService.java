@@ -20,9 +20,11 @@ public class CarService {
         this.carRepository = carRepository;
     }
 
-    public List<Car> getCars(){ return carRepository.findAll();}
+    public List<Car> getCars() {
+        return carRepository.findAll();
+    }
 
-    public Car getCarById(UUID id) throws Exception{
+    public Car getCarById(UUID id) throws Exception {
         Optional<Car> optCar = carRepository.findById(id);
 
         if (optCar.isEmpty()) {
@@ -31,12 +33,11 @@ public class CarService {
             return optCar.get();
     }
 
-    public Car addCar(final AddCar addCar)
-    {
-        return carRepository.save(new Car(addCar.yearOfManufacture(),addCar.registerNumber(), addCar.user(), addCar.manufacturer()));
+    public Car addCar(final AddCar addCar) {
+        return carRepository.save(new Car(addCar.yearOfManufacture(), addCar.registerNumber(), addCar.user(), addCar.manufacturer()));
     }
 
-    public Car updateCar(UUID id, Car car){
+    public Car updateCar(UUID id, Car car) {
 
         Car carPom = carRepository.findById(id).get();
         if (carPom.getId() == id) {
@@ -49,16 +50,18 @@ public class CarService {
         return car;
     }
 
-    public Car deleteById(UUID id) throws Exception{
+    public Car deleteById(UUID id) throws Exception {
         Optional<Car> optCar = carRepository.findById(id);
 
         if (optCar.isEmpty()) {
             throw new Exception("error.../n The value is not present!/nDid not find the car!");
-        } else{ carRepository.deleteById(id);
-            return optCar.get();}
+        } else {
+            carRepository.deleteById(id);
+            return optCar.get();
+        }
     }
 
-    public void deleteAllCars(){
+    public void deleteAllCars() {
         carRepository.deleteAll();
     }
 }
