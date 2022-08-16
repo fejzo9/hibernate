@@ -47,9 +47,14 @@ public class ModelService {
         return model;
     }
 
-    public Model deleteById(UUID id) {
-        modelRepository.deleteById(id);
-        return new Model();
+    public Model deleteById(UUID id) throws Exception {
+        Optional<Model> optionalModel = modelRepository.findById(id);
+
+        if (optionalModel.isEmpty()) {
+            throw new Exception("error.../n The value is not present!/nDid not find the shop!");
+        } else{ modelRepository.deleteById(id);
+            return optionalModel.get();}
+
     }
 
     public void deleteAllModels(){
