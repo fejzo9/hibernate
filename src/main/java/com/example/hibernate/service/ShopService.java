@@ -1,5 +1,6 @@
 package com.example.hibernate.service;
 
+import com.example.hibernate.exception.EntityNotFoundException;
 import com.example.hibernate.model.AddShop;
 import com.example.hibernate.model.Car;
 import com.example.hibernate.model.Part;
@@ -22,9 +23,11 @@ public class ShopService {
         this.shopRepository = shopRepository;
     }
 
-    public List<Shop> getShops(){ return shopRepository.findAll();}
+    public List<Shop> getShops() {
+        return shopRepository.findAll();
+    }
 
-    public Shop getShopById(UUID id) throws Exception{
+    public Shop getShopById(UUID id) throws Exception {
         Optional<Shop> optShop = shopRepository.findById(id);
 
         if (optShop.isEmpty()) {
@@ -33,11 +36,13 @@ public class ShopService {
             return optShop.get();
     }
 
-    public Shop addShop(final AddShop addShop) { return shopRepository.save(new Shop(addShop.name(), addShop.parts()));}
+    public Shop addShop(final AddShop addShop) {
+        return shopRepository.save(new Shop(addShop.name(), addShop.parts()));
+    }
 
-    public Shop updateShop(UUID id, Shop shop){
+    public Shop updateShop(UUID id, Shop shop) {
 
-        Shop shopPom= shopRepository.findById(id).get();
+        Shop shopPom = shopRepository.findById(id).get();
         if (shopPom.getId() == id) {
             shopPom.setName(shop.getName());
             shopPom.setParts(shop.getParts());
@@ -46,17 +51,19 @@ public class ShopService {
         return shop;
     }
 
-    public Shop deleteById(UUID id) throws Exception{
+    public Shop deleteById(UUID id) throws EntityNotFoundException {
         Optional<Shop> optionalShop = shopRepository.findById(id);
 
         if (optionalShop.isEmpty()) {
-            throw new Exception("error.../n The value is not present!/nDid not find the shop!");
-        } else{ shopRepository.deleteById(id);
-            return optionalShop.get();}
+            throw new EntityNotFoundException("error.../nSorry but we could not find a shop with that ID/nPlease try again.");
+        } else {
+            shopRepository.deleteById(id);
+            return optionalShop.get();
+        }
 
     }
 
-    public void deleteAllModels(){
+    public void deleteAllModels() {
         shopRepository.deleteAll();
     }
 }

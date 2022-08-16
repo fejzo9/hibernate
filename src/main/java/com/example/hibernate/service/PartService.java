@@ -1,5 +1,6 @@
 package com.example.hibernate.service;
 
+import com.example.hibernate.exception.EntityNotFoundException;
 import com.example.hibernate.model.AddPart;
 import com.example.hibernate.model.Model;
 import com.example.hibernate.model.Part;
@@ -21,9 +22,11 @@ public class PartService {
         this.partRepository = partRepository;
     }
 
-    public List<Part> getPart(){ return partRepository.findAll();}
+    public List<Part> getPart() {
+        return partRepository.findAll();
+    }
 
-    public Part getPartById(UUID id) throws Exception{
+    public Part getPartById(UUID id) throws Exception {
         Optional<Part> optPart = partRepository.findById(id);
 
         if (optPart.isEmpty()) {
@@ -32,31 +35,35 @@ public class PartService {
             return optPart.get();
     }
 
-    public Part addPart(final AddPart addPart) { return partRepository.save(new Part(addPart.name(),addPart.price(), addPart.rang(),addPart.models(), addPart.shop()));}
+    public Part addPart(final AddPart addPart) {
+        return partRepository.save(new Part(addPart.name(), addPart.price(), addPart.rang(), addPart.models(), addPart.shop()));
+    }
 
-    public Part updatePart(UUID id, Part part){
-        Part partPom= partRepository.findById(id).get();
+    public Part updatePart(UUID id, Part part) {
+        Part partPom = partRepository.findById(id).get();
         if (partPom.getId() == id) {
-           partPom.setName(part.getName());
-           partPom.setPrice(part.getPrice());
-           partPom.setRang(part.getRang());
-           partPom.setModels(part.getModels());
-           partPom.setShop(part.getShop());
+            partPom.setName(part.getName());
+            partPom.setPrice(part.getPrice());
+            partPom.setRang(part.getRang());
+            partPom.setModels(part.getModels());
+            partPom.setShop(part.getShop());
             return partPom;
         }
         return part;
     }
 
-    public Part deleteById(UUID id) throws Exception {
+    public Part deleteById(UUID id) throws EntityNotFoundException {
         Optional<Part> optionalPart = partRepository.findById(id);
 
         if (optionalPart.isEmpty()) {
-            throw new Exception("error.../n The value is not present!/nDid not find the part!");
-        } else{ partRepository.deleteById(id);
-            return optionalPart.get();}
+            throw new EntityNotFoundException("error.../nSorry but we could not find a part with that ID/nPlease try again.");
+        } else {
+            partRepository.deleteById(id);
+            return optionalPart.get();
+        }
     }
 
-    public void deleteAllModels(){
+    public void deleteAllModels() {
         partRepository.deleteAll();
     }
 }

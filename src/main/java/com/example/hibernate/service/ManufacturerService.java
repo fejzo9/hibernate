@@ -1,5 +1,6 @@
 package com.example.hibernate.service;
 
+import com.example.hibernate.exception.EntityNotFoundException;
 import com.example.hibernate.model.AddManufacturer;
 import com.example.hibernate.model.Car;
 import com.example.hibernate.model.Manufacturer;
@@ -25,11 +26,11 @@ public class ManufacturerService {
         return manufacturerRepository.findAll();
     }
 
-    public Manufacturer getManufacturerById(UUID id) throws Exception {
+    public Manufacturer getManufacturerById(UUID id) throws EntityNotFoundException {
         Optional<Manufacturer> optManufacturer = manufacturerRepository.findById(id);
 
         if (optManufacturer.isEmpty()) {
-            throw new Exception("error.../n The value is not present!");
+            throw new EntityNotFoundException("error.../nSorry but we could not find a car manufacturer with that ID/nPlease try again.");
         } else return optManufacturer.get();
     }
 

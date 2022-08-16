@@ -1,5 +1,6 @@
 package com.example.hibernate.service;
 
+import com.example.hibernate.exception.EntityNotFoundException;
 import com.example.hibernate.model.AddModel;
 import com.example.hibernate.model.Manufacturer;
 import com.example.hibernate.model.Model;
@@ -21,9 +22,11 @@ public class ModelService {
         this.modelRepository = modelRepository;
     }
 
-    public List<Model> getModels(){ return modelRepository.findAll();}
+    public List<Model> getModels() {
+        return modelRepository.findAll();
+    }
 
-    public Model getModelById(UUID id) throws Exception{
+    public Model getModelById(UUID id) throws Exception {
         Optional<Model> optModel = modelRepository.findById(id);
 
         if (optModel.isEmpty()) {
@@ -32,13 +35,12 @@ public class ModelService {
             return optModel.get();
     }
 
-    public Model addModel(final AddModel addModel)
-    {
+    public Model addModel(final AddModel addModel) {
         return modelRepository.save(new Model(addModel.name(), addModel.parts()));
     }
 
-    public Model updateModel(UUID id, Model model){
-        Model modelPom= modelRepository.findById(id).get();
+    public Model updateModel(UUID id, Model model) {
+        Model modelPom = modelRepository.findById(id).get();
         if (modelPom.getId() == id) {
             modelPom.setName(model.getName());
             modelPom.setParts(model.getParts());
@@ -47,17 +49,19 @@ public class ModelService {
         return model;
     }
 
-    public Model deleteById(UUID id) throws Exception {
+    public Model deleteById(UUID id) throws EntityNotFoundException {
         Optional<Model> optionalModel = modelRepository.findById(id);
 
         if (optionalModel.isEmpty()) {
-            throw new Exception("error.../n The value is not present!/nDid not find the model!");
-        } else{ modelRepository.deleteById(id);
-            return optionalModel.get();}
+            throw new EntityNotFoundException("error.../nSorry but we could not find a car model with that ID/nPlease try again.");
+        } else {
+            modelRepository.deleteById(id);
+            return optionalModel.get();
+        }
 
     }
 
-    public void deleteAllModels(){
+    public void deleteAllModels() {
         modelRepository.deleteAll();
     }
 }

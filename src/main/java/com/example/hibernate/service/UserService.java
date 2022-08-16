@@ -1,14 +1,12 @@
 package com.example.hibernate.service;
 
-import com.example.hibernate.exception.ApiRequestException;
+
 import com.example.hibernate.model.AddUser;
 import com.example.hibernate.model.User;
 import com.example.hibernate.repository.UserRepository;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+
 
 import javax.persistence.EntityNotFoundException;
 import java.util.*;
@@ -45,7 +43,7 @@ public class UserService {
         User userPom = userRepository.findById(id).get();
         if/*(userPom.isEmpty())
         {throw new Exception("error.../nThe user you are trying to find does not exist!/nTry with other id!");}
-        else */(userPom.getId() == id) {
+        else */ (userPom.getId() == id) {
             userPom.setName(user.getName());
             userPom.setAdress(user.getAdress());
             return userPom;
@@ -53,17 +51,19 @@ public class UserService {
         return user;
     }
 
-    public User deleteById(UUID id) throws Exception{
+    public User deleteById(UUID id) throws Exception {
         Optional<User> optUser = userRepository.findById(id);
 
         if (optUser.isEmpty()) {
             throw new Exception("error.../n The value is not present!/nDid not find the user!");
-        } else{ userRepository.deleteById(id);
-            return optUser.get();}
+        } else {
+            userRepository.deleteById(id);
+            return optUser.get();
+        }
     }
 
     public void deleteAllUsers() {
-      userRepository.deleteAll();
+        userRepository.deleteAll();
     }
 
 }
