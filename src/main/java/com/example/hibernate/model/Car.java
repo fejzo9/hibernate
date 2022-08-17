@@ -10,6 +10,7 @@ public class Car {
 
     //fields
     @Id
+    @GeneratedValue
     @Column(name = "id")
     private UUID id;
     @Column(name = "year")
@@ -35,20 +36,17 @@ public class Car {
         this.registerNumber = registerNumber;
     }
     public Car(int yearOfManufacture, User user) {
-        this.id = UUID.randomUUID();
         this.yearOfManufacture = yearOfManufacture;
         this.user = user;
     }
 
     public Car(int yearOfManufacture, String registerNumber, User user) {
-        this.id = UUID.randomUUID();
         this.yearOfManufacture = yearOfManufacture;
         this.registerNumber = registerNumber;
         this.user = user;
     }
 
     public Car(int yearOfManufacture, String registerNumber, User user, Manufacturer manufacturer) {
-        this.id = UUID.randomUUID();
         this.yearOfManufacture = yearOfManufacture;
         this.registerNumber = registerNumber;
         this.user = user;

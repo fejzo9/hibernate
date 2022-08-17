@@ -30,7 +30,7 @@ public class ManufacturerService {
         Optional<Manufacturer> optManufacturer = manufacturerRepository.findById(id);
 
         if (optManufacturer.isEmpty()) {
-            throw new EntityNotFoundException("error.../nSorry but we could not find a car manufacturer with that ID/nPlease try again.");
+            throw new EntityNotFoundException("Manufacturer", id);
         } else return optManufacturer.get();
     }
 

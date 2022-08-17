@@ -10,6 +10,7 @@ import java.util.UUID;
 public class User {
     //fields
     @Id
+    @GeneratedValue
     @Column(name = "id")
     private UUID id;
     @Column(name = "name")
@@ -18,7 +19,7 @@ public class User {
     @Column(name = "address")
     private String address;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     List<Car> cars = new ArrayList<>();
 
     //constructors
@@ -26,12 +27,10 @@ public class User {
     }
 
     public User(String name) {
-        this.id = UUID.randomUUID();
         this.name = name;
     }
 
     public User(String name, String address) {
-        this.id = UUID.randomUUID();
         this.name = name;
         this.address = address;
     }

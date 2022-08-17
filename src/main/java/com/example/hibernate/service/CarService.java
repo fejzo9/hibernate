@@ -55,7 +55,7 @@ public class CarService {
         Optional<Car> optCar = carRepository.findById(id);
 
         if (optCar.isEmpty()) {
-            throw new EntityNotFoundException("error.../nSorry but we could not find a car with that ID/nPlease try again.");
+            throw new EntityNotFoundException("Car", id);
         } else {
             carRepository.deleteById(id);
             return optCar.get();

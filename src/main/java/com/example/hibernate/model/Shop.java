@@ -11,6 +11,7 @@ public class Shop {
 
     //fields
     @Id
+    @GeneratedValue
     @Column(name = "id")
     private UUID id;
     @Column(name = "name ")

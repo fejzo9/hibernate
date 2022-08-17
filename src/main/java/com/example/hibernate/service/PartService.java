@@ -2,12 +2,9 @@ package com.example.hibernate.service;
 
 import com.example.hibernate.exception.EntityNotFoundException;
 import com.example.hibernate.model.AddPart;
-import com.example.hibernate.model.Model;
 import com.example.hibernate.model.Part;
 import com.example.hibernate.repository.PartRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Optional;
@@ -56,7 +53,7 @@ public class PartService {
         Optional<Part> optionalPart = partRepository.findById(id);
 
         if (optionalPart.isEmpty()) {
-            throw new EntityNotFoundException("error.../nSorry but we could not find a part with that ID/nPlease try again.");
+            throw new EntityNotFoundException("Part", id);
         } else {
             partRepository.deleteById(id);
             return optionalPart.get();

@@ -10,6 +10,7 @@ import java.util.UUID;
 public class Part {
     //fields
     @Id
+    @GeneratedValue
     @Column(name = "id")
     private UUID id;
     @Column(name="name")
@@ -34,7 +35,6 @@ public class Part {
     public Part() {
     }
     public Part(String name) {
-        this.id = UUID.randomUUID();
         this.name = name;
     }
 

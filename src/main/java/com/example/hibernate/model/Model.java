@@ -10,6 +10,7 @@ import java.util.UUID;
 public class Model {
     //fields
     @Id
+    @GeneratedValue
     @Column(name = "id")
     private UUID id;
     @Column(name="name")

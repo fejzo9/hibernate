@@ -40,22 +40,31 @@ public class ShopService {
         return shopRepository.save(new Shop(addShop.name(), addShop.parts()));
     }
 
-    public Shop updateShop(UUID id, Shop shop) {
-
-        Shop shopPom = shopRepository.findById(id).get();
-        if (shopPom.getId() == id) {
-            shopPom.setName(shop.getName());
-            shopPom.setParts(shop.getParts());
-            return shopPom;
+    public Shop updateShop(UUID id, Shop shop) { //FIXME this should be UpdateShop
+        //        return shopRepository
+        //                .findById(id)
+        //                .map(existingShop -> {
+        //                    existingShop.setName(shop.getName());
+        //                    existingShop.setParts(shop.getParts());
+        //                    return shopRepository.save(existingShop);
+        //                })
+        //                .orElseThrow(() -> new EntityNotFoundException("Shop", id));
+        final Optional<Shop> optionalShop = shopRepository.findById(id);
+        if (optionalShop.isEmpty()) {
+            throw new EntityNotFoundException("Shop", id);
         }
-        return shop;
+        Shop shopPom = optionalShop.get();
+        shopPom.setName(shop.getName());
+        shopPom.setParts(shop.getParts());
+        return shopPom;
+
     }
 
     public Shop deleteById(UUID id) throws EntityNotFoundException {
         Optional<Shop> optionalShop = shopRepository.findById(id);
 
         if (optionalShop.isEmpty()) {
-            throw new EntityNotFoundException("error.../nSorry but we could not find a shop with that ID/nPlease try again.");
+            throw new EntityNotFoundException("Shop", id);
         } else {
             shopRepository.deleteById(id);
             return optionalShop.get();

@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.example.hibernate.AppError;
+import com.example.hibernate.ErrorType;
+import com.example.hibernate.exception.EntityNotFoundException;
 import com.example.hibernate.model.AddUser;
 import com.example.hibernate.model.UpdateUser;
 import com.example.hibernate.model.User;
@@ -54,7 +57,7 @@ public class UserController {
         }
     }
 
-    @PutMapping("/id")
+    @PutMapping("{id}")
     public ResponseEntity<User> updateUser(@PathVariable("id") UUID id, @RequestBody UpdateUser updateUser) {
         try {
             return new ResponseEntity<>(userService.updateUser(id, updateUser), HttpStatus.OK);
@@ -63,12 +66,12 @@ public class UserController {
         }
     }
 
-    @DeleteMapping("/id")
-    public ResponseEntity<User> deleteUser(@PathVariable("id") UUID id) {
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable("id") UUID id) {
         try {
             return new ResponseEntity<>(userService.deleteById(id), HttpStatus.ACCEPTED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity<>(new AppError(e.getMessage(), ErrorType.ENTITY_NOT_FOUND), HttpStatus.NOT_FOUND);
         }
     }
 

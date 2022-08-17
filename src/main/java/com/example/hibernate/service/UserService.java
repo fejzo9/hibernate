@@ -1,6 +1,7 @@
 package com.example.hibernate.service;
 
 
+import com.example.hibernate.exception.EntityNotFoundException;
 import com.example.hibernate.model.AddUser;
 import com.example.hibernate.model.UpdateUser;
 import com.example.hibernate.model.User;
@@ -9,7 +10,6 @@ import com.example.hibernate.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 
-import javax.persistence.EntityNotFoundException;
 import java.util.*;
 
 @Service
@@ -26,11 +26,11 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User getUser(UUID userId) throws EntityNotFoundException {
+    public User getUser(UUID userId){
         Optional<User> optUser = userRepository.findById(userId);
 
         if (optUser.isEmpty()) {
-            throw new EntityNotFoundException("error.../nSorry but we could not find a User with that ID/nPlease try again.");
+            throw new EntityNotFoundException("User", userId);
         } else
             return optUser.get();
     }
@@ -42,21 +42,21 @@ public class UserService {
     public User updateUser(UUID id, UpdateUser updateUser) throws EntityNotFoundException {
 
         Optional<User> optUser = userRepository.findById(id);
-        if(optUser.isEmpty())
-        {throw new EntityNotFoundException("error.../nThe user you are trying to find does not exist!/nTry with other id!");}
-        else /*if (userPom.getId() == id) */{
-            User user = userRepository.findById(id).get();
-            user.setName(updateUser.name());
-            user.setAdress(updateUser.address());
-            return userRepository.save(new User(updateUser.name(), updateUser.address()));
+        if (optUser.isEmpty()) {
+            throw new EntityNotFoundException("User", id);
         }
+        User user = optUser.get();
+        user.setName(updateUser.name());
+        user.setAdress(updateUser.address());
+        return userRepository.save(user);
+
     }
 
     public User deleteById(UUID id) throws EntityNotFoundException {
         Optional<User> optUser = userRepository.findById(id);
 
         if (optUser.isEmpty()) {
-            throw new EntityNotFoundException("error.../n Sorry but we could not find a user with that ID/nPlease try again");
+            throw new EntityNotFoundException("User", id);
         } else {
             userRepository.deleteById(id);
             return optUser.get();

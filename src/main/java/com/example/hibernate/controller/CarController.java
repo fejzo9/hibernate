@@ -1,23 +1,22 @@
 package com.example.hibernate.controller;
 
 import com.example.hibernate.model.AddCar;
-import com.example.hibernate.model.AddUser;
 import com.example.hibernate.model.Car;
-import com.example.hibernate.model.User;
 import com.example.hibernate.service.CarService;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/api/car")
 public class CarController {
 
     private final CarService carService;
-
     public CarController(CarService carService) {
         this.carService = carService;
     }
@@ -63,7 +62,7 @@ public class CarController {
         }
     }
 
-    @DeleteMapping("/id")
+    @DeleteMapping("{id}")
     public ResponseEntity<Car> deleteUser(@PathVariable("id") UUID id) {
         try {
             return new ResponseEntity<>(carService.deleteById(id), HttpStatus.ACCEPTED);

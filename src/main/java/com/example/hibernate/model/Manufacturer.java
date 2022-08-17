@@ -10,6 +10,7 @@ import java.util.UUID;
 public class Manufacturer {
     //fields
     @Id
+    @GeneratedValue
     @Column(name = "id")
     private UUID id;
 
@@ -25,7 +26,6 @@ public class Manufacturer {
     //constructors
     public Manufacturer(){}
     public Manufacturer(String name, List<Car> cars, List<Model> models){
-        this.id = UUID.randomUUID();
         this.name = name;
         this.cars = cars;
         this.models = models;

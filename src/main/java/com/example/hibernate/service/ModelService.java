@@ -26,11 +26,11 @@ public class ModelService {
         return modelRepository.findAll();
     }
 
-    public Model getModelById(UUID id) throws Exception {
+    public Model getModelById(UUID id) {
         Optional<Model> optModel = modelRepository.findById(id);
 
         if (optModel.isEmpty()) {
-            throw new Exception("error.../n The value is not present!");
+            throw new EntityNotFoundException("Model", id);
         } else
             return optModel.get();
     }
@@ -53,7 +53,7 @@ public class ModelService {
         Optional<Model> optionalModel = modelRepository.findById(id);
 
         if (optionalModel.isEmpty()) {
-            throw new EntityNotFoundException("error.../nSorry but we could not find a car model with that ID/nPlease try again.");
+            throw new EntityNotFoundException("Model", id);
         } else {
             modelRepository.deleteById(id);
             return optionalModel.get();
