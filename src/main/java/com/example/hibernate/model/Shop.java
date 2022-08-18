@@ -16,7 +16,7 @@ public class Shop {
     private UUID id;
     @Column(name = "name ")
     private String name;
-    @OneToMany(mappedBy = "shop")
+    @OneToMany(mappedBy = "shop", fetch = FetchType.LAZY)
     List<Part> parts = new ArrayList<>();
 
     //constructors

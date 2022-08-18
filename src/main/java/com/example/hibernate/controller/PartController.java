@@ -3,6 +3,7 @@ package com.example.hibernate.controller;
 import com.example.hibernate.model.AddPart;
 import com.example.hibernate.model.Model;
 import com.example.hibernate.model.Part;
+import com.example.hibernate.model.UpdatePart;
 import com.example.hibernate.service.PartService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/part")
+@RequestMapping("/api/car/part")
 public class PartController {
     private final PartService partService;
 
@@ -53,9 +54,9 @@ public class PartController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Part> updatePart(@PathVariable("id") UUID id, @RequestBody Part part) {
+    public ResponseEntity<Part> updatePart(@PathVariable("id") UUID id, @RequestBody UpdatePart UpdatePart) {
         try {
-            return new ResponseEntity<>(partService.updatePart(id, part), HttpStatus.OK);
+            return new ResponseEntity<>(partService.updatePart(id, UpdatePart), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

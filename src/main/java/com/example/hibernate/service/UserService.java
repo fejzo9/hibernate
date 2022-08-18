@@ -26,7 +26,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User getUser(UUID userId){
+    public User getUser(UUID userId) {
         Optional<User> optUser = userRepository.findById(userId);
 
         if (optUser.isEmpty()) {

@@ -3,6 +3,7 @@ package com.example.hibernate.service;
 import com.example.hibernate.exception.EntityNotFoundException;
 import com.example.hibernate.model.AddCar;
 import com.example.hibernate.model.Car;
+import com.example.hibernate.model.UpdateCar;
 import com.example.hibernate.model.User;
 import com.example.hibernate.repository.CarRepository;
 import org.springframework.stereotype.Repository;
@@ -38,17 +39,19 @@ public class CarService {
         return carRepository.save(new Car(addCar.yearOfManufacture(), addCar.registerNumber(), addCar.user(), addCar.manufacturer()));
     }
 
-    public Car updateCar(UUID id, Car car) {
+    public Car updateCar(UUID id, UpdateCar updateCar) throws EntityNotFoundException {
 
-        Car carPom = carRepository.findById(id).get();
-        if (carPom.getId() == id) {
-            carPom.setRegisterNumber(car.getRegisterNumber());
-            carPom.setYearOfManufacture(car.getYearOfManufacture());
-            carPom.setUser(car.getUser());
-            carPom.setManufacturer(car.getManufacturer());
-            return carPom;
+        Optional<Car> optCar = carRepository.findById(id);
+        if (optCar.isEmpty()) {
+            throw new EntityNotFoundException("Car", id);
         }
-        return car;
+        Car carPom = optCar.get();
+        carPom.setYearOfManufacture(updateCar.yearOfManufacture());
+        carPom.setRegisterNumber(updateCar.registerNumber());
+        carPom.setUser(updateCar.user());
+        carPom.setManufacturer(updateCar.manufacturer());
+        return carRepository.save(carPom);
+
     }
 
     public Car deleteById(UUID id) throws EntityNotFoundException {

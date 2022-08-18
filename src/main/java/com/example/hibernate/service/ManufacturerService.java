@@ -1,10 +1,7 @@
 package com.example.hibernate.service;
 
 import com.example.hibernate.exception.EntityNotFoundException;
-import com.example.hibernate.model.AddManufacturer;
-import com.example.hibernate.model.Car;
-import com.example.hibernate.model.Manufacturer;
-import com.example.hibernate.model.Shop;
+import com.example.hibernate.model.*;
 import com.example.hibernate.repository.ManufacturerRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,23 +35,25 @@ public class ManufacturerService {
         return manufacturerRepository.save(new Manufacturer(addManufacturer.name(), addManufacturer.cars(), addManufacturer.models()));
     }
 
-    public Manufacturer updateManufacturer(UUID id, Manufacturer manufacturer) {
+    public Manufacturer updateManufacturer(UUID id, UpdateManufacturer updateManufacturer) throws EntityNotFoundException{
 
-        Manufacturer manufacturerPom = manufacturerRepository.findById(id).get();
-        if (manufacturerPom.getId() == id) {
-            manufacturerPom.setName(manufacturer.getName());
-            manufacturerPom.setCars(manufacturer.getCars());
-            manufacturerPom.setModels(manufacturer.getModels());
-            return manufacturerPom;
+        Optional<Manufacturer> optManufacturer = manufacturerRepository.findById(id);
+        if (optManufacturer.isEmpty()) {
+            throw new EntityNotFoundException("Manufacturer", id);
         }
-        return manufacturer;
+        Manufacturer manufacturerPom = optManufacturer.get();
+        manufacturerPom.setName(updateManufacturer.name());
+        manufacturerPom.setCars(updateManufacturer.cars());
+        manufacturerPom.setModels(updateManufacturer.models());
+        return manufacturerRepository.save(manufacturerPom);
+
     }
 
-    public Manufacturer deleteById(UUID id) throws Exception {
+    public Manufacturer deleteById(UUID id) throws EntityNotFoundException {
         Optional<Manufacturer> optionalManufacturer = manufacturerRepository.findById(id);
 
         if (optionalManufacturer.isEmpty()) {
-            throw new Exception("error.../n The value is not present!/nDid not find the manufecturer!");
+            throw new EntityNotFoundException("Manufacturer", id);
         } else {
             manufacturerRepository.deleteById(id);
             return optionalManufacturer.get();

@@ -3,6 +3,7 @@ package com.example.hibernate.service;
 import com.example.hibernate.exception.EntityNotFoundException;
 import com.example.hibernate.model.AddPart;
 import com.example.hibernate.model.Part;
+import com.example.hibernate.model.UpdatePart;
 import com.example.hibernate.repository.PartRepository;
 import org.springframework.stereotype.Service;
 
@@ -36,17 +37,18 @@ public class PartService {
         return partRepository.save(new Part(addPart.name(), addPart.price(), addPart.rang(), addPart.models(), addPart.shop()));
     }
 
-    public Part updatePart(UUID id, Part part) {
-        Part partPom = partRepository.findById(id).get();
-        if (partPom.getId() == id) {
-            partPom.setName(part.getName());
-            partPom.setPrice(part.getPrice());
-            partPom.setRang(part.getRang());
-            partPom.setModels(part.getModels());
-            partPom.setShop(part.getShop());
-            return partPom;
+    public Part updatePart(UUID id, UpdatePart part) throws EntityNotFoundException {
+        Optional<Part> optPart = partRepository.findById(id);
+        if (optPart.isEmpty()) {
+            throw new EntityNotFoundException("Part", id);
         }
-        return part;
+        Part partPom = optPart.get();
+        partPom.setName(part.name());
+        partPom.setPrice(part.price());
+        partPom.setRang(part.rang());
+        partPom.setModels(part.models());
+        return partRepository.save(partPom);
+
     }
 
     public Part deleteById(UUID id) throws EntityNotFoundException {

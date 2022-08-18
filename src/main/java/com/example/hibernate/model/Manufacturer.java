@@ -17,10 +17,10 @@ public class Manufacturer {
     @Column(name="name")
     private String name;
 
-    @OneToMany(mappedBy = "manufacturer")
+    @OneToMany(mappedBy = "manufacturer", fetch = FetchType.LAZY)
     List<Car> cars = new ArrayList<>();
 
-    @OneToMany(mappedBy = "manufacturer")
+    @OneToMany(mappedBy = "manufacturer", fetch = FetchType.LAZY)
     List<Model> models = new ArrayList<>();
 
     //constructors

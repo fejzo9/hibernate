@@ -1,7 +1,6 @@
 package com.example.hibernate.model;
 
 import javax.persistence.*;
-import java.util.Random;
 import java.util.UUID;
 
 @Entity
@@ -21,7 +20,6 @@ public class Car {
     @JoinColumn(name = "user_id")
     User user;
 
-
     @ManyToOne
     @JoinColumn(name = "manufacturer_id")
     Manufacturer manufacturer;
@@ -30,11 +28,11 @@ public class Car {
     public Car() {
     }
 
-    public Car (int yearOfManufacture, String registerNumber)
-    {
+    public Car(int yearOfManufacture, String registerNumber) {
         this.yearOfManufacture = yearOfManufacture;
         this.registerNumber = registerNumber;
     }
+
     public Car(int yearOfManufacture, User user) {
         this.yearOfManufacture = yearOfManufacture;
         this.user = user;

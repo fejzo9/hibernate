@@ -15,7 +15,7 @@ public class Model {
     private UUID id;
     @Column(name="name")
     private String name;
-    @ManyToMany(mappedBy = "models")
+    @ManyToMany(mappedBy = "models", fetch = FetchType.LAZY)
     private List<Part> parts = new ArrayList<>();
 
     @ManyToOne

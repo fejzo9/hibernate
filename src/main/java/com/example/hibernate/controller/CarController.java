@@ -2,6 +2,7 @@ package com.example.hibernate.controller;
 
 import com.example.hibernate.model.AddCar;
 import com.example.hibernate.model.Car;
+import com.example.hibernate.model.UpdateCar;
 import com.example.hibernate.service.CarService;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -54,9 +55,9 @@ public class CarController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Car> updateCar(@PathVariable("id") UUID id, @RequestBody Car car) {
+    public ResponseEntity<Car> updateCar(@PathVariable("id") UUID id, @RequestBody UpdateCar updateCar) {
         try {
-            return new ResponseEntity<>(carService.updateCar(id, car), HttpStatus.OK);
+            return new ResponseEntity<>(carService.updateCar(id, updateCar), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

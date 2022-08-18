@@ -3,6 +3,7 @@ package com.example.hibernate.controller;
 import com.example.hibernate.model.AddModel;
 import com.example.hibernate.model.Manufacturer;
 import com.example.hibernate.model.Model;
+import com.example.hibernate.model.UpdateModel;
 import com.example.hibernate.service.ModelService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -54,9 +55,9 @@ public class ModelController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Model> updateModel(@PathVariable("id") UUID id, @RequestBody Model model) {
+    public ResponseEntity<Model> updateModel(@PathVariable("id") UUID id, @RequestBody UpdateModel updateModel) {
         try {
-            return new ResponseEntity<>(modelService.updateModel(id, model), HttpStatus.OK);
+            return new ResponseEntity<>(modelService.updateModel(id, updateModel), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

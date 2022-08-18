@@ -3,6 +3,7 @@ package com.example.hibernate.controller;
 import com.example.hibernate.model.AddManufacturer;
 import com.example.hibernate.model.Car;
 import com.example.hibernate.model.Manufacturer;
+import com.example.hibernate.model.UpdateManufacturer;
 import com.example.hibernate.service.ManufacturerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/manufacturer")
+@RequestMapping("/api/car/manufacturer")
 public class ManufacturerController {
 
     private final ManufacturerService manufacturerService;
@@ -54,7 +55,7 @@ public class ManufacturerController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Manufacturer> updateManufacturer(@PathVariable("id") UUID id, @RequestBody Manufacturer manufacturer) {
+    public ResponseEntity<Manufacturer> updateManufacturer(@PathVariable("id") UUID id, @RequestBody UpdateManufacturer manufacturer) {
         try {
             return new ResponseEntity<>(manufacturerService.updateManufacturer(id, manufacturer), HttpStatus.OK);
         } catch (Exception e) {

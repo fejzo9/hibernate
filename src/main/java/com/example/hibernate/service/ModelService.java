@@ -4,6 +4,7 @@ import com.example.hibernate.exception.EntityNotFoundException;
 import com.example.hibernate.model.AddModel;
 import com.example.hibernate.model.Manufacturer;
 import com.example.hibernate.model.Model;
+import com.example.hibernate.model.UpdateModel;
 import com.example.hibernate.repository.ModelRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,14 +40,18 @@ public class ModelService {
         return modelRepository.save(new Model(addModel.name(), addModel.parts()));
     }
 
-    public Model updateModel(UUID id, Model model) {
-        Model modelPom = modelRepository.findById(id).get();
-        if (modelPom.getId() == id) {
-            modelPom.setName(model.getName());
-            modelPom.setParts(model.getParts());
-            return modelPom;
+    public Model updateModel(UUID id, UpdateModel model) throws EntityNotFoundException {
+
+        Optional<Model> optModel = modelRepository.findById(id);
+        if (optModel.isEmpty()) {
+            throw new EntityNotFoundException("Car", id);
         }
-        return model;
+        Model modelPom = optModel.get();
+        modelPom.setName(model.name());
+        modelPom.setParts(model.parts());
+        return modelRepository.save(modelPom);
+
+
     }
 
     public Model deleteById(UUID id) throws EntityNotFoundException {
