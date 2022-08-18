@@ -63,6 +63,15 @@ public class CarController {
         }
     }
 
+    @PutMapping("{car_id}/assign/{user_id}")
+    public ResponseEntity<Car> buyCar(@PathVariable("car_id") UUID carId, @PathVariable("user_id") UUID userId, @RequestBody UpdateCar updateCar){
+        try {
+            return new ResponseEntity<>(carService.buyCar(carId, userId,updateCar), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @DeleteMapping("{id}")
     public ResponseEntity<Car> deleteUser(@PathVariable("id") UUID id) {
         try {

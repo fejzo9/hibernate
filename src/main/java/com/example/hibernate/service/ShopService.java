@@ -1,10 +1,7 @@
 package com.example.hibernate.service;
 
 import com.example.hibernate.exception.EntityNotFoundException;
-import com.example.hibernate.model.AddShop;
-import com.example.hibernate.model.Car;
-import com.example.hibernate.model.Part;
-import com.example.hibernate.model.Shop;
+import com.example.hibernate.model.*;
 import com.example.hibernate.repository.ShopRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,7 +37,7 @@ public class ShopService {
         return shopRepository.save(new Shop(addShop.name(), addShop.parts()));
     }
 
-    public Shop updateShop(UUID id, Shop shop) { //FIXME this should be UpdateShop
+    public Shop updateShop(UUID id, UpdateShop updateShop) { //FIXME this should be UpdateShop
         //        return shopRepository
         //                .findById(id)
         //                .map(existingShop -> {
@@ -54,9 +51,9 @@ public class ShopService {
             throw new EntityNotFoundException("Shop", id);
         }
         Shop shopPom = optionalShop.get();
-        shopPom.setName(shop.getName());
-        shopPom.setParts(shop.getParts());
-        return shopPom;
+        shopPom.setName(updateShop.name());
+        shopPom.setParts(updateShop.parts());
+        return shopRepository.save(shopPom);
 
     }
 

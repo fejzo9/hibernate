@@ -48,6 +48,7 @@
             <property name="hibernate.connection.useUnicode" value="true"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.enable_lazy_load_no_trans" value="true" />
             <!-- use encache provider-->
             <!--<property name="hibernate.cache.region.factory_class"-->
             <!--value="org.hibernate.cache.ehcache.EhCacheRegionFactory"/>-->
