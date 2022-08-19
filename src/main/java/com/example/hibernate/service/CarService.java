@@ -62,7 +62,7 @@ public class CarService {
 
     }
 
-    public Car buyCar(final UUID carId, final UUID userId, final UpdateCar updateCar) throws EntityNotFoundException {
+    public Car buyCar(final UUID carId, final UUID userId) throws EntityNotFoundException {
         Optional<Car> optCar = carRepository.findById(carId);
         Optional<User> optUser = userRepository.findById(userId);
 

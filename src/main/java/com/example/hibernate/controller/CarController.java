@@ -4,20 +4,19 @@ import com.example.hibernate.model.AddCar;
 import com.example.hibernate.model.Car;
 import com.example.hibernate.model.UpdateCar;
 import com.example.hibernate.service.CarService;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/api/car")
 public class CarController {
 
     private final CarService carService;
+
     public CarController(CarService carService) {
         this.carService = carService;
     }
@@ -64,9 +63,9 @@ public class CarController {
     }
 
     @PutMapping("{car_id}/assign/{user_id}")
-    public ResponseEntity<Car> buyCar(@PathVariable("car_id") UUID carId, @PathVariable("user_id") UUID userId, @RequestBody UpdateCar updateCar){
+    public ResponseEntity<Car> buyCar(@PathVariable("car_id") UUID carId, @PathVariable("user_id") UUID userId) {
         try {
-            return new ResponseEntity<>(carService.buyCar(carId, userId,updateCar), HttpStatus.OK);
+            return new ResponseEntity<>(carService.buyCar(carId, userId), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
