@@ -19,12 +19,6 @@ public class CarService {
     private final CarRepository carRepository;
     private final UserRepository userRepository;
 
-    public CarService(CarRepository carRepository) {
-        this.carRepository = carRepository;
-        userRepository = null;
-    }
-
-    public CarService(){this.carRepository = null; this.userRepository=null; }
     public CarService(CarRepository carRepository, UserRepository userRepository) {
         this.carRepository = carRepository;
         this.userRepository = userRepository;
