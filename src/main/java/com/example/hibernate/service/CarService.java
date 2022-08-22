@@ -33,8 +33,7 @@ public class CarService {
 
         if (optCar.isEmpty()) {
             throw new Exception("error.../n The value is not present!");
-        } else
-            return optCar.get();
+        } else return optCar.get();
     }
 
     public Car addCar(final AddCar addCar) {
@@ -50,7 +49,7 @@ public class CarService {
         Car carPom = optCar.get();
         carPom.setYearOfManufacture(updateCar.yearOfManufacture());
         carPom.setRegisterNumber(updateCar.registerNumber());
-        carPom.setUser(updateCar.user());
+//        carPom.setUser(updateCar.user());
         carPom.setManufacturer(updateCar.manufacturer());
         return carRepository.save(carPom);
 

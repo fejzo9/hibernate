@@ -1,5 +1,7 @@
 package com.example.hibernate.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.UUID;
 
@@ -16,6 +18,7 @@ public class Car {
     private int yearOfManufacture;
     @Column(name = "registerNumber")
     private String registerNumber;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     User user;
