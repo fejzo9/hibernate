@@ -22,7 +22,7 @@ public class Car {
     @ManyToOne
     @JoinColumn(name = "user_id")
     User user;
-
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "manufacturer_id")
     Manufacturer manufacturer;
