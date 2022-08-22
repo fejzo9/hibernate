@@ -71,6 +71,15 @@ public class CarController {
         }
     }
 
+    @PutMapping("{car_id}/hasManufacturer/{manufacturer_id}")
+    public ResponseEntity<Car> hasManufacturer(@PathVariable("car_id") UUID carId, @PathVariable("manufacturer_id") UUID manufacturerId) {
+        try {
+            return new ResponseEntity<>(carService.hasManufacturer(carId, manufacturerId), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @DeleteMapping("{id}")
     public ResponseEntity<Car> deleteUser(@PathVariable("id") UUID id) {
         try {

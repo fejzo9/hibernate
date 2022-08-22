@@ -1,11 +1,9 @@
 package com.example.hibernate.service;
 
 import com.example.hibernate.exception.EntityNotFoundException;
-import com.example.hibernate.model.AddCar;
-import com.example.hibernate.model.Car;
-import com.example.hibernate.model.UpdateCar;
-import com.example.hibernate.model.User;
+import com.example.hibernate.model.*;
 import com.example.hibernate.repository.CarRepository;
+import com.example.hibernate.repository.ManufacturerRepository;
 import com.example.hibernate.repository.UserRepository;
 import org.springframework.stereotype.Repository;
 
@@ -18,10 +16,12 @@ import java.util.UUID;
 public class CarService {
     private final CarRepository carRepository;
     private final UserRepository userRepository;
+    private final ManufacturerRepository manufacturerRepository;
 
-    public CarService(CarRepository carRepository, UserRepository userRepository) {
+    public CarService(CarRepository carRepository, UserRepository userRepository, ManufacturerRepository manufacturerRepository) {
         this.carRepository = carRepository;
         this.userRepository = userRepository;
+        this.manufacturerRepository = manufacturerRepository;
     }
 
     public List<Car> getCars() {
@@ -75,6 +75,19 @@ public class CarService {
         return carRepository.save(car);
     }
 
+    public Car hasManufacturer(final UUID carId, final UUID manufacturerId) {
+        Optional<Car> optCar = carRepository.findById(carId);
+        Optional<Manufacturer> optManufacturer = manufacturerRepository.findById(manufacturerId);
+
+        if (optCar.isEmpty() || optManufacturer.isEmpty()) {
+            throw new EntityNotFoundException("Car", carId, manufacturerId);
+        }
+        Car car = optCar.get();
+        Manufacturer manufacturer = optManufacturer.get();
+        car.setManufacturer(manufacturer);
+        return carRepository.save(car);
+    }
+
     public Car deleteById(UUID id) throws EntityNotFoundException {
         Optional<Car> optCar = carRepository.findById(id);
 
@@ -89,4 +102,5 @@ public class CarService {
     public void deleteAllCars() {
         carRepository.deleteAll();
     }
+
 }
