@@ -1,10 +1,8 @@
 package com.example.hibernate.service;
 
 import com.example.hibernate.exception.EntityNotFoundException;
-import com.example.hibernate.model.AddModel;
-import com.example.hibernate.model.Manufacturer;
-import com.example.hibernate.model.Model;
-import com.example.hibernate.model.UpdateModel;
+import com.example.hibernate.model.*;
+import com.example.hibernate.repository.ManufacturerRepository;
 import com.example.hibernate.repository.ModelRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,9 +16,11 @@ import java.util.UUID;
 public class ModelService {
 
     private final ModelRepository modelRepository;
+    private final ManufacturerRepository manufacturerRepository;
 
-    public ModelService(ModelRepository modelRepository) {
+    public ModelService(ModelRepository modelRepository, ManufacturerRepository manufacturerRepository) {
         this.modelRepository = modelRepository;
+        this.manufacturerRepository = manufacturerRepository;
     }
 
     public List<Model> getModels() {
@@ -68,5 +68,18 @@ public class ModelService {
 
     public void deleteAllModels() {
         modelRepository.deleteAll();
+    }
+
+    public Model hasManufacturer(final UUID modelId, final UUID manufacturerId) throws EntityNotFoundException {
+        Optional<Model> optModel = modelRepository.findById(modelId);
+        Optional<Manufacturer> optManufacturer = manufacturerRepository.findById(manufacturerId);
+
+        if (optModel.isEmpty() || optManufacturer.isEmpty()) {
+            throw new EntityNotFoundException("Model", modelId, manufacturerId);
+        }
+        Model model = optModel.get();
+        Manufacturer manufacturer = optManufacturer.get();
+        model.setManufacturer(manufacturer);
+        return modelRepository.save(model);
     }
 }

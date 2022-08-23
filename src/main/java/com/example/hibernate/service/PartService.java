@@ -72,7 +72,7 @@ public class PartService {
         Optional<Shop> optShop = shopRepository.findById(shopId);
 
         if (optPart.isEmpty() || optShop.isEmpty()) {
-            throw new EntityNotFoundException("Car", partId, shopId);
+            throw new EntityNotFoundException("Part", partId, shopId);
         }
         Part part = optPart.get();
         Shop shop = optShop.get();

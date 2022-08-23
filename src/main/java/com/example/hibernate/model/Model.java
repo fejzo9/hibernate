@@ -1,5 +1,7 @@
 package com.example.hibernate.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,11 +15,11 @@ public class Model {
     @GeneratedValue
     @Column(name = "id")
     private UUID id;
-    @Column(name="name")
+    @Column(name = "name")
     private String name;
     @ManyToMany(mappedBy = "models", fetch = FetchType.LAZY)
     private List<Part> parts = new ArrayList<>();
-
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "manufacturer_id")
     Manufacturer manufacturer;
@@ -25,12 +27,12 @@ public class Model {
     //constructors
     public Model() {
     }
+
     public Model(String name) {
         this.name = name;
     }
 
-    public Model(String name, List<Part> parts)
-    {
+    public Model(String name, List<Part> parts) {
         this.name = name;
         this.parts = parts;
     }
@@ -58,5 +60,13 @@ public class Model {
 
     public void setParts(List<Part> parts) {
         this.parts = parts;
+    }
+
+    public Manufacturer getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(Manufacturer manufacturer) {
+        this.manufacturer = manufacturer;
     }
 }

@@ -1,9 +1,6 @@
 package com.example.hibernate.controller;
 
-import com.example.hibernate.model.AddModel;
-import com.example.hibernate.model.Manufacturer;
-import com.example.hibernate.model.Model;
-import com.example.hibernate.model.UpdateModel;
+import com.example.hibernate.model.*;
 import com.example.hibernate.service.ModelService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -63,6 +60,14 @@ public class ModelController {
         }
     }
 
+    @PutMapping("{model_id}/hasManufacturer/{manufacturer_id}")
+    public ResponseEntity<Model> hasManufacturer(@PathVariable("model_id") UUID modelId, @PathVariable("manufacturer_id") UUID manufacturerId) {
+        try {
+            return new ResponseEntity<>(modelService.hasManufacturer(modelId, manufacturerId), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
     @DeleteMapping("{id}")
     public ResponseEntity<Model> deleteModel(@PathVariable("id") UUID id) {
         try {
