@@ -17,6 +17,7 @@ public class Model {
     private UUID id;
     @Column(name = "name")
     private String name;
+    @JsonIgnore
     @ManyToMany(mappedBy = "models", fetch = FetchType.LAZY)
     private List<Part> parts = new ArrayList<>();
     @JsonIgnore
@@ -35,6 +36,11 @@ public class Model {
     public Model(String name, List<Part> parts) {
         this.name = name;
         this.parts = parts;
+    }
+    public Model(String name, List<Part> parts, Manufacturer manufacturer) {
+        this.name = name;
+        this.parts = parts;
+        this.manufacturer = manufacturer;
     }
 
     //getters & setters

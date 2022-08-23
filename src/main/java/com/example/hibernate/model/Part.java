@@ -15,18 +15,18 @@ public class Part {
     @GeneratedValue
     @Column(name = "id")
     private UUID id;
-    @Column(name="name")
+    @Column(name = "name")
     private String name;
-    @Column(name="price")
+    @Column(name = "price")
     private Double price;
-    @Column(name="rang")
+    @Column(name = "rang")
     private Rang rang;
 
     //relationships
     @ManyToMany
-    @JoinTable(name="part_model",
-    joinColumns = @JoinColumn(name="part_id"),
-    inverseJoinColumns = @JoinColumn(name="model_id"))
+    @JoinTable(name = "part_model",
+            joinColumns = @JoinColumn(name = "part_id"),
+            inverseJoinColumns = @JoinColumn(name = "model_id"))
     private List<Model> models = new ArrayList<>();
     @JsonIgnore
     @ManyToOne
@@ -36,6 +36,7 @@ public class Part {
     //constructors
     public Part() {
     }
+
     public Part(String name) {
         this.name = name;
     }
@@ -86,6 +87,7 @@ public class Part {
     public List<Model> getModels() {
         return models;
     }
+
     public void setModels(List<Model> models) {
         this.models = models;
     }

@@ -37,7 +37,7 @@ public class ModelService {
     }
 
     public Model addModel(final AddModel addModel) {
-        return modelRepository.save(new Model(addModel.name(), addModel.parts()));
+        return modelRepository.save(new Model(addModel.name(), addModel.parts(), addModel.manufacturer()));
     }
 
     public Model updateModel(UUID id, UpdateModel model) throws EntityNotFoundException {
