@@ -11,7 +11,7 @@ public class Manufacturer {
     //fields
     @Id
     @GeneratedValue
-    @Column(name = "id")
+    @Column(name = "id", nullable = false, updatable = false)
     private UUID id;
 
     @Column(name="name")

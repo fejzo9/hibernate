@@ -13,7 +13,7 @@ public class Part {
     //fields
     @Id
     @GeneratedValue
-    @Column(name = "id")
+    @Column(name = "id", nullable = false, updatable = false)
     private UUID id;
     @Column(name = "name")
     private String name;

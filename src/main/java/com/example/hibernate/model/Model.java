@@ -13,7 +13,7 @@ public class Model {
     //fields
     @Id
     @GeneratedValue
-    @Column(name = "id")
+    @Column(name = "id", nullable = false, updatable = false)
     private UUID id;
     @Column(name = "name")
     private String name;
@@ -37,6 +37,7 @@ public class Model {
         this.name = name;
         this.parts = parts;
     }
+
     public Model(String name, List<Part> parts, Manufacturer manufacturer) {
         this.name = name;
         this.parts = parts;
