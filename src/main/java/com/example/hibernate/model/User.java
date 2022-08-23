@@ -11,7 +11,7 @@ public class User {
     //fields
     @Id
     @GeneratedValue
-    @Column(name = "id", nullable = false, updatable = falseq)
+    @Column(name = "id", nullable = false, updatable = false)
     private UUID id;
     @Column(name = "name")
     private String name;
