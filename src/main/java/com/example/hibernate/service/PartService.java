@@ -1,10 +1,9 @@
 package com.example.hibernate.service;
 
 import com.example.hibernate.exception.EntityNotFoundException;
-import com.example.hibernate.model.AddPart;
-import com.example.hibernate.model.Part;
-import com.example.hibernate.model.UpdatePart;
+import com.example.hibernate.model.*;
 import com.example.hibernate.repository.PartRepository;
+import com.example.hibernate.repository.ShopRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,9 +14,11 @@ import java.util.UUID;
 public class PartService {
 
     private final PartRepository partRepository;
+    private final ShopRepository shopRepository;
 
-    public PartService(PartRepository partRepository) {
+    public PartService(PartRepository partRepository, ShopRepository shopRepository) {
         this.partRepository = partRepository;
+        this.shopRepository = shopRepository;
     }
 
     public List<Part> getPart() {
@@ -64,5 +65,18 @@ public class PartService {
 
     public void deleteAllModels() {
         partRepository.deleteAll();
+    }
+
+    public Part isSelling(final UUID partId, final UUID shopId) throws EntityNotFoundException {
+        Optional<Part> optPart = partRepository.findById(partId);
+        Optional<Shop> optShop = shopRepository.findById(shopId);
+
+        if (optPart.isEmpty() || optShop.isEmpty()) {
+            throw new EntityNotFoundException("Car", partId, shopId);
+        }
+        Part part = optPart.get();
+        Shop shop = optShop.get();
+        part.setShop(shop);
+        return partRepository.save(part);
     }
 }

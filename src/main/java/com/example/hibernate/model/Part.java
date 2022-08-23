@@ -1,5 +1,7 @@
 package com.example.hibernate.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +28,7 @@ public class Part {
     joinColumns = @JoinColumn(name="part_id"),
     inverseJoinColumns = @JoinColumn(name="model_id"))
     private List<Model> models = new ArrayList<>();
-
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "shop_id")
     Shop shop;

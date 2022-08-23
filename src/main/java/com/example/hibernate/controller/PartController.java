@@ -62,6 +62,16 @@ public class PartController {
         }
     }
 
+    @PutMapping("{part_id}/belongsTo/{shop_id}")
+    public ResponseEntity<Part> isSelling(@PathVariable("part_id") UUID partId, @PathVariable("shop_id") UUID shopId) {
+        try {
+            return new ResponseEntity<>(partService.isSelling(partId, shopId), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
     @DeleteMapping("{id}")
     public ResponseEntity<Part> deletePart(@PathVariable("id") UUID id) {
         try {
