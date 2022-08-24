@@ -47,7 +47,7 @@ public class UserService {
         }
         User user = optUser.get();
         user.setName(updateUser.name());
-        user.setAdress(updateUser.address());
+        user.setAddress(updateUser.address());
         return userRepository.save(user);
 
     }

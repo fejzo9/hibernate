@@ -37,7 +37,7 @@ public class ShopService {
         return shopRepository.save(new Shop(addShop.name(), addShop.parts()));
     }
 
-    public Shop updateShop(UUID id, UpdateShop updateShop) { //FIXME this should be UpdateShop
+    public Shop updateShop(UUID id, UpdateShop updateShop) {
         //        return shopRepository
         //                .findById(id)
         //                .map(existingShop -> {

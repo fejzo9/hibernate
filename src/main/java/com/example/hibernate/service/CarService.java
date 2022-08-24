@@ -75,18 +75,18 @@ public class CarService {
         return carRepository.save(car);
     }
 
-    public Car hasManufacturer(final UUID carId, final UUID manufacturerId) {
-        Optional<Car> optCar = carRepository.findById(carId);
-        Optional<Manufacturer> optManufacturer = manufacturerRepository.findById(manufacturerId);
-
-        if (optCar.isEmpty() || optManufacturer.isEmpty()) {
-            throw new EntityNotFoundException("Car", carId, manufacturerId);
-        }
-        Car car = optCar.get();
-        Manufacturer manufacturer = optManufacturer.get();
-        car.setManufacturer(manufacturer);
-        return carRepository.save(car);
-    }
+//    public Car hasManufacturer(final UUID carId, final UUID manufacturerId) {
+//        Optional<Car> optCar = carRepository.findById(carId);
+//        Optional<Manufacturer> optManufacturer = manufacturerRepository.findById(manufacturerId);
+//
+//        if (optCar.isEmpty() || optManufacturer.isEmpty()) {
+//            throw new EntityNotFoundException("Car", carId, manufacturerId);
+//        }
+//        Car car = optCar.get();
+//        Manufacturer manufacturer = optManufacturer.get();
+//        car.setManufacturer(manufacturer);
+//        return carRepository.save(car);
+//    }
 
     public Car deleteById(UUID id) throws EntityNotFoundException {
         Optional<Car> optCar = carRepository.findById(id);
@@ -103,4 +103,18 @@ public class CarService {
         carRepository.deleteAll();
     }
 
+    public List<Car> getCarsByManufacturer(UUID manufacturerId) {
+        Optional<Manufacturer> optionalManufacturer = manufacturerRepository.findById(manufacturerId);
+        if (optionalManufacturer.isEmpty()) {
+            throw new EntityNotFoundException("Manufacturer", manufacturerId);
+        } else {
+            List<Car> cars = carRepository.findAll();
+            List<Car> carsFromManufacturer = new ArrayList<>();
+            for(int i=0; i<cars.size();i++){
+            if(cars.get(i).getManufacturer()==optionalManufacturer.get())
+                carsFromManufacturer.add(cars.get(i));
+            }
+            return carsFromManufacturer;
+        }
+    }
 }

@@ -44,6 +44,20 @@ public class CarController {
         }
     }
 
+    @GetMapping("/manufacturer/{manufacturer_id}/models")
+    public ResponseEntity<List<Car>> getCarModels(@PathVariable("manufacturer_id") UUID manufacturerId) {
+        try {
+            List<Car> cars = carService.getCarsByManufacturer(manufacturerId);
+
+            if (cars.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(cars, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @PostMapping("")
     public ResponseEntity<Car> createCar(@RequestBody AddCar car) {
         try {
@@ -71,14 +85,14 @@ public class CarController {
         }
     }
 
-    @PutMapping("{car_id}/hasManufacturer/{manufacturer_id}")
-    public ResponseEntity<Car> hasManufacturer(@PathVariable("car_id") UUID carId, @PathVariable("manufacturer_id") UUID manufacturerId) {
-        try {
-            return new ResponseEntity<>(carService.hasManufacturer(carId, manufacturerId), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+//    @PutMapping("{car_id}/has_manufacturer/{manufacturer_id}")
+//    public ResponseEntity<Car> hasManufacturer(@PathVariable("car_id") UUID carId, @PathVariable("manufacturer_id") UUID manufacturerId) {
+//        try {
+//            return new ResponseEntity<>(carService.hasManufacturer(carId, manufacturerId), HttpStatus.OK);
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
 
     @DeleteMapping("{id}")
     public ResponseEntity<Car> deleteUser(@PathVariable("id") UUID id) {
@@ -90,7 +104,7 @@ public class CarController {
     }
 
     @DeleteMapping("")
-    public ResponseEntity<HttpStatus> deleteAllUsers() {
+    public ResponseEntity<HttpStatus> deleteAllCars() {
         try {
             carService.deleteAllCars();
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
