@@ -22,6 +22,10 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     List<Car> cars = new ArrayList<>();
 
+    @Column(name = "url")
+    private String urlPicture;
+
+
     //constructors
     public User() {
     }
@@ -62,6 +66,14 @@ public class User {
 
     public void setCars(List<Car> cars) {
         this.cars = cars;
+    }
+
+    public String getUrlPicture() {
+        return urlPicture;
+    }
+
+    public void setUrlPicture(String urlPicture) {
+        this.urlPicture = urlPicture;
     }
 
 }
