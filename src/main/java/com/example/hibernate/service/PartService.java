@@ -69,11 +69,14 @@ public class PartService {
 
     public Part isSelling(final UUID partId, final UUID shopId) throws EntityNotFoundException {
         Optional<Part> optPart = partRepository.findById(partId);
-        Optional<Shop> optShop = shopRepository.findById(shopId);
-
-        if (optPart.isEmpty() || optShop.isEmpty()) {
-            throw new EntityNotFoundException("Part", partId, shopId);
+        if (optPart.isEmpty()) {
+            throw new EntityNotFoundException("Part", partId);
         }
+        Optional<Shop> optShop = shopRepository.findById(shopId);
+        if (optShop.isEmpty()) {
+            throw new EntityNotFoundException("Shop", partId);
+        }
+
         Part part = optPart.get();
         Shop shop = optShop.get();
         part.setShop(shop);

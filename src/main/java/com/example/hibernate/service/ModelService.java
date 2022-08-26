@@ -44,14 +44,12 @@ public class ModelService {
 
         Optional<Model> optModel = modelRepository.findById(id);
         if (optModel.isEmpty()) {
-            throw new EntityNotFoundException("Car", id);
+            throw new EntityNotFoundException("Model", id);
         }
         Model modelPom = optModel.get();
         modelPom.setName(model.name());
         modelPom.setParts(model.parts());
         return modelRepository.save(modelPom);
-
-
     }
 
     public Model deleteById(UUID id) throws EntityNotFoundException {
@@ -72,11 +70,14 @@ public class ModelService {
 
     public Model hasManufacturer(final UUID modelId, final UUID manufacturerId) throws EntityNotFoundException {
         Optional<Model> optModel = modelRepository.findById(modelId);
-        Optional<Manufacturer> optManufacturer = manufacturerRepository.findById(manufacturerId);
-
-        if (optModel.isEmpty() || optManufacturer.isEmpty()) {
-            throw new EntityNotFoundException("Model", modelId, manufacturerId);
+        if (optModel.isEmpty()) {
+            throw new EntityNotFoundException("Model", modelId);
         }
+        Optional<Manufacturer> optManufacturer = manufacturerRepository.findById(manufacturerId);
+        if (optManufacturer.isEmpty()) {
+            throw new EntityNotFoundException("Manufacturer", modelId);
+        }
+
         Model model = optModel.get();
         Manufacturer manufacturer = optManufacturer.get();
         model.setManufacturer(manufacturer);

@@ -57,36 +57,20 @@ public class CarService {
 
     public Car buyCar(final UUID carId, final UUID userId) throws EntityNotFoundException {
         Optional<Car> optCar = carRepository.findById(carId);
-        Optional<User> optUser = userRepository.findById(userId);
-
-        if (optCar.isEmpty() || optUser.isEmpty()) {
-            throw new EntityNotFoundException("Car", carId, userId);
+        if (optCar.isEmpty()) {
+            throw new EntityNotFoundException("Car", carId);
         }
+
+        Optional<User> optUser = userRepository.findById(userId);
+        if (optUser.isEmpty()) {
+            throw new EntityNotFoundException("User", carId);
+        }
+
         Car car = optCar.get();
         User user = optUser.get();
-//        car.setManufacturer(updateCar.manufacturer());
-//        car.setRegisterNumber(updateCar.registerNumber());
-//        car.setYearOfManufacture(updateCar.yearOfManufacture());
         car.setUser(user);
-//        List<Car> cars = new ArrayList<>();
-//        cars.add(car);
-//        user.setCars(cars);
-//         userRepository.save(user);
         return carRepository.save(car);
     }
-
-//    public Car hasManufacturer(final UUID carId, final UUID manufacturerId) {
-//        Optional<Car> optCar = carRepository.findById(carId);
-//        Optional<Manufacturer> optManufacturer = manufacturerRepository.findById(manufacturerId);
-//
-//        if (optCar.isEmpty() || optManufacturer.isEmpty()) {
-//            throw new EntityNotFoundException("Car", carId, manufacturerId);
-//        }
-//        Car car = optCar.get();
-//        Manufacturer manufacturer = optManufacturer.get();
-//        car.setManufacturer(manufacturer);
-//        return carRepository.save(car);
-//    }
 
     public Car deleteById(UUID id) throws EntityNotFoundException {
         Optional<Car> optCar = carRepository.findById(id);
@@ -110,9 +94,9 @@ public class CarService {
         } else {
             List<Car> cars = carRepository.findAll();
             List<Car> carsFromManufacturer = new ArrayList<>();
-            for(int i=0; i<cars.size();i++){
-            if(cars.get(i).getManufacturer()==optionalManufacturer.get())
-                carsFromManufacturer.add(cars.get(i));
+            for (int i = 0; i < cars.size(); i++) {
+                if (cars.get(i).getManufacturer() == optionalManufacturer.get())
+                    carsFromManufacturer.add(cars.get(i));
             }
             return carsFromManufacturer;
         }
