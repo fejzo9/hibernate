@@ -38,6 +38,12 @@ public class User {
         this.name = name;
         this.address = address;
     }
+    public User(String name, String address, String urlPicture) {
+        this.name = name;
+        this.address = address;
+        this.urlPicture = urlPicture;
+    }
+
 
     //getters & setters
     public UUID getId() {

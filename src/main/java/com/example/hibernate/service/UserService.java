@@ -36,7 +36,7 @@ public class UserService {
     }
 
     public User newUser(final AddUser addUser) {
-        return userRepository.save(new User(addUser.name(), addUser.address()));
+        return userRepository.save(new User(addUser.name(), addUser.address(), addUser.urlPicture()));
     }
 
     public User updateUser(UUID id, UpdateUser updateUser) throws EntityNotFoundException {
