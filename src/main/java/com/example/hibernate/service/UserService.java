@@ -39,7 +39,7 @@ public class UserService {
         return userRepository.save(new User(addUser.name(), addUser.address(), addUser.urlPicture()));
     }
 
-    public User updateUser(UUID id, UpdateUser updateUser) throws EntityNotFoundException {
+    public User updateUser(final UUID id, final UpdateUser updateUser) throws EntityNotFoundException {
 
         Optional<User> optUser = userRepository.findById(id);
         if (optUser.isEmpty()) {
